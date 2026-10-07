@@ -1,0 +1,905 @@
+{
+  "generatedAt": "2026-10-07T13:22:13.930Z",
+  "totals": {
+    "sites": 76,
+    "scanned": 48,
+    "failed": 28,
+    "policyFound": 44,
+    "blocked": 11,
+    "robotsExcluded": 15,
+    "otherErrors": 2,
+    "sitesWithUndisclosed": 28,
+    "trackingPairs": 393,
+    "undisclosedPairs": 193,
+    "vaguePairs": 89,
+    "grades": {
+      "B": 8,
+      "C": 10,
+      "A": 7,
+      "D": 5,
+      "E": 14,
+      "N/A": 4
+    }
+  },
+  "byCategory": [
+    {
+      "category": "교육·취업",
+      "sites": 5,
+      "avgGap": 0.233,
+      "avgTrackers": 6.6,
+      "withUndisclosed": 1
+    },
+    {
+      "category": "금융",
+      "sites": 4,
+      "avgGap": 0.208,
+      "avgTrackers": 1.5,
+      "withUndisclosed": 1
+    },
+    {
+      "category": "생활·플랫폼",
+      "sites": 5,
+      "avgGap": 0.325,
+      "avgTrackers": 5.6,
+      "withUndisclosed": 1
+    },
+    {
+      "category": "쇼핑",
+      "sites": 6,
+      "avgGap": 0.284,
+      "avgTrackers": 8.5,
+      "withUndisclosed": 3
+    },
+    {
+      "category": "언론",
+      "sites": 15,
+      "avgGap": 0.748,
+      "avgTrackers": 14.7,
+      "withUndisclosed": 13
+    },
+    {
+      "category": "여행·항공",
+      "sites": 3,
+      "avgGap": 0.474,
+      "avgTrackers": 11,
+      "withUndisclosed": 3
+    },
+    {
+      "category": "의료·뷰티",
+      "sites": 6,
+      "avgGap": 0.321,
+      "avgTrackers": 5.3,
+      "withUndisclosed": 4
+    },
+    {
+      "category": "콘텐츠",
+      "sites": 4,
+      "avgGap": 0.125,
+      "avgTrackers": 3.8,
+      "withUndisclosed": 2
+    }
+  ],
+  "topEntities": [
+    {
+      "name": "Google",
+      "sites": 41,
+      "undisclosed": 8,
+      "vague": 2,
+      "categories": [
+        "태그 관리자",
+        "웹 분석",
+        "동영상",
+        "광고/리타게팅",
+        "보안/봇 방지",
+        "CDN/정적 리소스",
+        "웹 폰트"
+      ]
+    },
+    {
+      "name": "카카오",
+      "sites": 32,
+      "undisclosed": 8,
+      "vague": 2,
+      "categories": [
+        "CDN/정적 리소스",
+        "소셜 플러그인",
+        "광고/리타게팅",
+        "지도"
+      ]
+    },
+    {
+      "name": "Criteo",
+      "sites": 24,
+      "undisclosed": 15,
+      "vague": 7,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "네이버",
+      "sites": 22,
+      "undisclosed": 5,
+      "vague": 3,
+      "categories": [
+        "웹 분석",
+        "CDN/정적 리소스",
+        "광고/리타게팅",
+        "지도",
+        "소셜 플러그인"
+      ]
+    },
+    {
+      "name": "Meta (Facebook)",
+      "sites": 20,
+      "undisclosed": 3,
+      "vague": 4,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "엔라이플 (모비온)",
+      "sites": 20,
+      "undisclosed": 14,
+      "vague": 6,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Xandr (AppNexus)",
+      "sites": 16,
+      "undisclosed": 12,
+      "vague": 4,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "와이더플래닛",
+      "sites": 15,
+      "undisclosed": 10,
+      "vague": 4,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Microsoft (Clarity/Bing)",
+      "sites": 15,
+      "undisclosed": 4,
+      "vague": 4,
+      "categories": [
+        "세션 녹화/히트맵",
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "PubMatic",
+      "sites": 14,
+      "undisclosed": 9,
+      "vague": 5,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "OpenX",
+      "sites": 13,
+      "undisclosed": 10,
+      "vague": 3,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "The Trade Desk",
+      "sites": 13,
+      "undisclosed": 9,
+      "vague": 4,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Taboola",
+      "sites": 12,
+      "undisclosed": 8,
+      "vague": 4,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "데이블",
+      "sites": 12,
+      "undisclosed": 10,
+      "vague": 2,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Magnite (Rubicon)",
+      "sites": 11,
+      "undisclosed": 6,
+      "vague": 5,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Opera Ads",
+      "sites": 11,
+      "undisclosed": 8,
+      "vague": 3,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Temu",
+      "sites": 11,
+      "undisclosed": 8,
+      "vague": 3,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Lotame",
+      "sites": 10,
+      "undisclosed": 7,
+      "vague": 3,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "ID5",
+      "sites": 9,
+      "undisclosed": 6,
+      "vague": 3,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Yahoo (Verizon Media)",
+      "sites": 8,
+      "undisclosed": 5,
+      "vague": 3,
+      "categories": [
+        "웹 분석",
+        "광고/리타게팅"
+      ]
+    }
+  ],
+  "sites": [
+    {
+      "id": "S01",
+      "category": "교육·취업",
+      "policyFound": true,
+      "trackingEntities": 11,
+      "explicit": 10,
+      "vague": 1,
+      "undisclosed": 0,
+      "gapIndex": 0.045,
+      "policyCoverage": 0.909,
+      "thirdPartyCookies": 40,
+      "grade": "B"
+    },
+    {
+      "id": "S02",
+      "category": "교육·취업",
+      "policyFound": true,
+      "trackingEntities": 3,
+      "explicit": 2,
+      "vague": 1,
+      "undisclosed": 0,
+      "gapIndex": 0.167,
+      "policyCoverage": 0.667,
+      "thirdPartyCookies": 9,
+      "grade": "B"
+    },
+    {
+      "id": "S03",
+      "category": "교육·취업",
+      "policyFound": true,
+      "trackingEntities": 9,
+      "explicit": 6,
+      "vague": 3,
+      "undisclosed": 0,
+      "gapIndex": 0.167,
+      "policyCoverage": 0.667,
+      "thirdPartyCookies": 28,
+      "grade": "B"
+    },
+    {
+      "id": "S04",
+      "category": "교육·취업",
+      "policyFound": true,
+      "trackingEntities": 7,
+      "explicit": 5,
+      "vague": 0,
+      "undisclosed": 2,
+      "gapIndex": 0.286,
+      "policyCoverage": 0.714,
+      "thirdPartyCookies": 23,
+      "grade": "C"
+    },
+    {
+      "id": "S05",
+      "category": "교육·취업",
+      "policyFound": true,
+      "trackingEntities": 3,
+      "explicit": 0,
+      "vague": 3,
+      "undisclosed": 0,
+      "gapIndex": 0.5,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 11,
+      "grade": "C"
+    },
+    {
+      "id": "S06",
+      "category": "금융",
+      "policyFound": true,
+      "trackingEntities": 0,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": null,
+      "thirdPartyCookies": 0,
+      "grade": "A"
+    },
+    {
+      "id": "S07",
+      "category": "금융",
+      "policyFound": true,
+      "trackingEntities": 1,
+      "explicit": 1,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 1,
+      "thirdPartyCookies": 0,
+      "grade": "A"
+    },
+    {
+      "id": "S08",
+      "category": "금융",
+      "policyFound": true,
+      "trackingEntities": 3,
+      "explicit": 1,
+      "vague": 2,
+      "undisclosed": 0,
+      "gapIndex": 0.333,
+      "policyCoverage": 0.333,
+      "thirdPartyCookies": 3,
+      "grade": "B"
+    },
+    {
+      "id": "S09",
+      "category": "금융",
+      "policyFound": true,
+      "trackingEntities": 2,
+      "explicit": 1,
+      "vague": 0,
+      "undisclosed": 1,
+      "gapIndex": 0.5,
+      "policyCoverage": 0.5,
+      "thirdPartyCookies": 0,
+      "grade": "D"
+    },
+    {
+      "id": "S10",
+      "category": "생활·플랫폼",
+      "policyFound": true,
+      "trackingEntities": 3,
+      "explicit": 3,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 1,
+      "thirdPartyCookies": 0,
+      "grade": "A"
+    },
+    {
+      "id": "S11",
+      "category": "생활·플랫폼",
+      "policyFound": true,
+      "trackingEntities": 3,
+      "explicit": 3,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 1,
+      "thirdPartyCookies": 1,
+      "grade": "A"
+    },
+    {
+      "id": "S12",
+      "category": "생활·플랫폼",
+      "policyFound": true,
+      "trackingEntities": 10,
+      "explicit": 5,
+      "vague": 5,
+      "undisclosed": 0,
+      "gapIndex": 0.25,
+      "policyCoverage": 0.5,
+      "thirdPartyCookies": 52,
+      "grade": "B"
+    },
+    {
+      "id": "S13",
+      "category": "생활·플랫폼",
+      "policyFound": true,
+      "trackingEntities": 4,
+      "explicit": 1,
+      "vague": 3,
+      "undisclosed": 0,
+      "gapIndex": 0.375,
+      "policyCoverage": 0.25,
+      "thirdPartyCookies": 9,
+      "grade": "B"
+    },
+    {
+      "id": "S14",
+      "category": "생활·플랫폼",
+      "policyFound": true,
+      "trackingEntities": 8,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 8,
+      "gapIndex": 1,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 26,
+      "grade": "E"
+    },
+    {
+      "id": "S15",
+      "category": "쇼핑",
+      "policyFound": true,
+      "trackingEntities": 1,
+      "explicit": 1,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 1,
+      "thirdPartyCookies": 3,
+      "grade": "A"
+    },
+    {
+      "id": "S16",
+      "category": "쇼핑",
+      "policyFound": false,
+      "trackingEntities": 9,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 19,
+      "grade": "N/A"
+    },
+    {
+      "id": "S17",
+      "category": "쇼핑",
+      "policyFound": true,
+      "trackingEntities": 3,
+      "explicit": 2,
+      "vague": 1,
+      "undisclosed": 0,
+      "gapIndex": 0.167,
+      "policyCoverage": 0.667,
+      "thirdPartyCookies": 11,
+      "grade": "B"
+    },
+    {
+      "id": "S18",
+      "category": "쇼핑",
+      "policyFound": true,
+      "trackingEntities": 14,
+      "explicit": 6,
+      "vague": 5,
+      "undisclosed": 3,
+      "gapIndex": 0.393,
+      "policyCoverage": 0.429,
+      "thirdPartyCookies": 27,
+      "grade": "D"
+    },
+    {
+      "id": "S19",
+      "category": "쇼핑",
+      "policyFound": true,
+      "trackingEntities": 15,
+      "explicit": 7,
+      "vague": 0,
+      "undisclosed": 8,
+      "gapIndex": 0.533,
+      "policyCoverage": 0.467,
+      "thirdPartyCookies": 70,
+      "grade": "E"
+    },
+    {
+      "id": "S20",
+      "category": "쇼핑",
+      "policyFound": true,
+      "trackingEntities": 9,
+      "explicit": 1,
+      "vague": 5,
+      "undisclosed": 3,
+      "gapIndex": 0.611,
+      "policyCoverage": 0.111,
+      "thirdPartyCookies": 21,
+      "grade": "D"
+    },
+    {
+      "id": "S21",
+      "category": "언론",
+      "policyFound": false,
+      "trackingEntities": 16,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 57,
+      "grade": "N/A"
+    },
+    {
+      "id": "S22",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 12,
+      "explicit": 2,
+      "vague": 10,
+      "undisclosed": 0,
+      "gapIndex": 0.417,
+      "policyCoverage": 0.167,
+      "thirdPartyCookies": 20,
+      "grade": "B"
+    },
+    {
+      "id": "S23",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 21,
+      "explicit": 3,
+      "vague": 17,
+      "undisclosed": 1,
+      "gapIndex": 0.452,
+      "policyCoverage": 0.143,
+      "thirdPartyCookies": 140,
+      "grade": "C"
+    },
+    {
+      "id": "S24",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 20,
+      "explicit": 2,
+      "vague": 17,
+      "undisclosed": 1,
+      "gapIndex": 0.475,
+      "policyCoverage": 0.1,
+      "thirdPartyCookies": 129,
+      "grade": "C"
+    },
+    {
+      "id": "S25",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 11,
+      "explicit": 3,
+      "vague": 0,
+      "undisclosed": 8,
+      "gapIndex": 0.727,
+      "policyCoverage": 0.273,
+      "thirdPartyCookies": 52,
+      "grade": "E"
+    },
+    {
+      "id": "S26",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 8,
+      "explicit": 2,
+      "vague": 0,
+      "undisclosed": 6,
+      "gapIndex": 0.75,
+      "policyCoverage": 0.25,
+      "thirdPartyCookies": 65,
+      "grade": "E"
+    },
+    {
+      "id": "S27",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 23,
+      "explicit": 4,
+      "vague": 1,
+      "undisclosed": 18,
+      "gapIndex": 0.804,
+      "policyCoverage": 0.174,
+      "thirdPartyCookies": 213,
+      "grade": "E"
+    },
+    {
+      "id": "S28",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 7,
+      "explicit": 1,
+      "vague": 0,
+      "undisclosed": 6,
+      "gapIndex": 0.857,
+      "policyCoverage": 0.143,
+      "thirdPartyCookies": 11,
+      "grade": "E"
+    },
+    {
+      "id": "S29",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 16,
+      "explicit": 2,
+      "vague": 0,
+      "undisclosed": 14,
+      "gapIndex": 0.875,
+      "policyCoverage": 0.125,
+      "thirdPartyCookies": 59,
+      "grade": "E"
+    },
+    {
+      "id": "S30",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 16,
+      "explicit": 0,
+      "vague": 2,
+      "undisclosed": 14,
+      "gapIndex": 0.938,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 83,
+      "grade": "E"
+    },
+    {
+      "id": "S31",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 19,
+      "explicit": 1,
+      "vague": 0,
+      "undisclosed": 18,
+      "gapIndex": 0.947,
+      "policyCoverage": 0.053,
+      "thirdPartyCookies": 136,
+      "grade": "E"
+    },
+    {
+      "id": "S32",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 17,
+      "explicit": 0,
+      "vague": 1,
+      "undisclosed": 16,
+      "gapIndex": 0.971,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 100,
+      "grade": "E"
+    },
+    {
+      "id": "S33",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 5,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 5,
+      "gapIndex": 1,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 9,
+      "grade": "D"
+    },
+    {
+      "id": "S34",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 13,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 13,
+      "gapIndex": 1,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 49,
+      "grade": "E"
+    },
+    {
+      "id": "S35",
+      "category": "언론",
+      "policyFound": true,
+      "trackingEntities": 16,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 16,
+      "gapIndex": 1,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 68,
+      "grade": "E"
+    },
+    {
+      "id": "S36",
+      "category": "여행·항공",
+      "policyFound": true,
+      "trackingEntities": 14,
+      "explicit": 6,
+      "vague": 7,
+      "undisclosed": 1,
+      "gapIndex": 0.321,
+      "policyCoverage": 0.429,
+      "thirdPartyCookies": 50,
+      "grade": "C"
+    },
+    {
+      "id": "S37",
+      "category": "여행·항공",
+      "policyFound": true,
+      "trackingEntities": 8,
+      "explicit": 5,
+      "vague": 0,
+      "undisclosed": 3,
+      "gapIndex": 0.375,
+      "policyCoverage": 0.625,
+      "thirdPartyCookies": 20,
+      "grade": "D"
+    },
+    {
+      "id": "S38",
+      "category": "여행·항공",
+      "policyFound": true,
+      "trackingEntities": 11,
+      "explicit": 3,
+      "vague": 0,
+      "undisclosed": 8,
+      "gapIndex": 0.727,
+      "policyCoverage": 0.273,
+      "thirdPartyCookies": 23,
+      "grade": "E"
+    },
+    {
+      "id": "S39",
+      "category": "의료·뷰티",
+      "policyFound": true,
+      "trackingEntities": 1,
+      "explicit": 1,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 1,
+      "thirdPartyCookies": 0,
+      "grade": "A"
+    },
+    {
+      "id": "S40",
+      "category": "의료·뷰티",
+      "policyFound": true,
+      "trackingEntities": 2,
+      "explicit": 2,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 1,
+      "thirdPartyCookies": 7,
+      "grade": "A"
+    },
+    {
+      "id": "S41",
+      "category": "의료·뷰티",
+      "policyFound": true,
+      "trackingEntities": 6,
+      "explicit": 5,
+      "vague": 0,
+      "undisclosed": 1,
+      "gapIndex": 0.167,
+      "policyCoverage": 0.833,
+      "thirdPartyCookies": 2,
+      "grade": "C"
+    },
+    {
+      "id": "S42",
+      "category": "의료·뷰티",
+      "policyFound": true,
+      "trackingEntities": 4,
+      "explicit": 2,
+      "vague": 1,
+      "undisclosed": 1,
+      "gapIndex": 0.375,
+      "policyCoverage": 0.5,
+      "thirdPartyCookies": 0,
+      "grade": "C"
+    },
+    {
+      "id": "S43",
+      "category": "의료·뷰티",
+      "policyFound": true,
+      "trackingEntities": 2,
+      "explicit": 1,
+      "vague": 0,
+      "undisclosed": 1,
+      "gapIndex": 0.5,
+      "policyCoverage": 0.5,
+      "thirdPartyCookies": 0,
+      "grade": "C"
+    },
+    {
+      "id": "S44",
+      "category": "의료·뷰티",
+      "policyFound": true,
+      "trackingEntities": 17,
+      "explicit": 2,
+      "vague": 0,
+      "undisclosed": 15,
+      "gapIndex": 0.882,
+      "policyCoverage": 0.118,
+      "thirdPartyCookies": 59,
+      "grade": "E"
+    },
+    {
+      "id": "S45",
+      "category": "콘텐츠",
+      "policyFound": false,
+      "trackingEntities": 0,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": null,
+      "thirdPartyCookies": 0,
+      "grade": "N/A"
+    },
+    {
+      "id": "S46",
+      "category": "콘텐츠",
+      "policyFound": false,
+      "trackingEntities": 0,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": null,
+      "thirdPartyCookies": 0,
+      "grade": "N/A"
+    },
+    {
+      "id": "S47",
+      "category": "콘텐츠",
+      "policyFound": true,
+      "trackingEntities": 5,
+      "explicit": 4,
+      "vague": 0,
+      "undisclosed": 1,
+      "gapIndex": 0.2,
+      "policyCoverage": 0.8,
+      "thirdPartyCookies": 6,
+      "grade": "C"
+    },
+    {
+      "id": "S48",
+      "category": "콘텐츠",
+      "policyFound": true,
+      "trackingEntities": 10,
+      "explicit": 5,
+      "vague": 4,
+      "undisclosed": 1,
+      "gapIndex": 0.3,
+      "policyCoverage": 0.5,
+      "thirdPartyCookies": 13,
+      "grade": "C"
+    }
+  ]
+}

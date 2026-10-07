@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.netlify/
+.env
+experiment/batch.log
+# 실험 원자료: 실명 사이트별 결과·처리방침 원문 포함 → 저장소에 올리지 않음 (공개 저장소 배포 시 명예훼손·저작권 위험)
+experiment/results/
+experiment/summary.csv
+experiment/labels*.csv
+experiment/eval.json
+# 실제 실험 대상 사이트 목록 (익명화된 결과와 대조해 재식별되지 않도록 비공개). 형식은 sites.example.csv 참고
+experiment/sites.csv
+# 로컬 개발 도구 설정
+.claude/
+.env.*
+*.log
