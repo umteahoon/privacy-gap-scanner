@@ -88,7 +88,8 @@ const anon = ok.map(r => ({
     ({ trackingEntities, explicit, vague, undisclosed, gapIndex, policyCoverage, thirdPartyCookies, grade }))(r.metrics),
 })).sort((a, b) => a.category.localeCompare(b.category) || a.gapIndex - b.gapIndex || a.trackingEntities - b.trackingEntities)
   .map((s, i) => ({ id: `S${String(i + 1).padStart(2, '0')}`, ...s }));
-for (const s of anon) {
+// 업종별 통계는 처리방침을 확보한 사이트만 집계 (미확보 사이트는 판정 불가라 미명시 0으로 왜곡됨)
+for (const s of anon.filter(x => x.policyFound)) {
   const c = byCat[s.category] ||= { category: s.category, sites: 0, avgGap: 0, avgTrackers: 0, withUndisclosed: 0 };
   c.sites++; c.avgGap += s.gapIndex; c.avgTrackers += s.trackingEntities; if (s.undisclosed > 0) c.withUndisclosed++;
 }

@@ -1,6 +1,6 @@
 // POST /api/scan  { url, policyUrl? } → { id }
 import { blobStore, json } from '../../lib/blob-store.js';
-import { createScan } from '../../lib/service.js';
+import { createScan, failScan } from '../../lib/service.js';
 
 export default async (req, context) => {
   if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
@@ -18,7 +18,10 @@ export default async (req, context) => {
       const r = await fetch(`${origin}/api/internal/scan-worker`, {
         method: 'POST', headers: { 'content-type': 'application/json', 'x-worker-secret': secret }, body: JSON.stringify({ id }),
       });
-      if (r.status >= 400) return json({ error: '검사 작업을 시작하지 못했습니다.' }, 502);
+      if (r.status >= 400) {
+        await failScan(store, id, '검사 작업을 시작하지 못했습니다. 잠시 후 다시 시도하세요.');
+        return json({ error: '검사 작업을 시작하지 못했습니다.' }, 502);
+      }
     }
     return json({ id, reused });
   } catch (e) {

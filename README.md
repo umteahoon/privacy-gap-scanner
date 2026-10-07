@@ -183,6 +183,7 @@ $env:ANTHROPIC_API_KEY="sk-ant-..."
 cp experiment/sites.example.csv experiment/sites.csv   # 검사할 사이트 목록 작성 (category,url,policy_url)
 npm run batch -- --concurrency 4                       # 일괄 스캔 (원시 관측 데이터 포함 저장)
 npm run batch -- --reanalyze                           # 지식베이스·규칙 수정 후 저장된 데이터로 재판정만 수행
+node cli/recheck-robots.js                             # 저장된 결과가 현재 robots.txt 규칙을 지키는지 재검증
 npm run eval > experiment/eval.json                    # 정답지 라벨링 후 정밀도/재현율/F1, Cohen's κ 계산
 ```
 
@@ -197,10 +198,10 @@ npm run eval > experiment/eval.json                    # 정답지 라벨링 후
 
 | 항목 | 결과 |
 |---|---|
-| 스캔 성공 | 48곳 (robots.txt 금지 15곳, 자동화 차단 11곳은 정책 존중으로 제외) |
-| 처리방침 자동 확보 | 44곳 |
-| 사이트–추적 사업자 쌍 | 393개: 명시 28.2% · 포괄 고지 22.6% · **미명시 49.1%** |
-| 미명시 사업자 보유 사이트 | 28곳 (63.6%) |
+| 스캔 성공 | 48곳 (robots.txt 금지 15곳, 자동화 차단 11곳은 정책 존중으로 제외, 접속 오류 2곳) |
+| 분석 대상 | 38곳 (처리방침 경로가 robots.txt로 금지된 7곳, 차단 1곳, 링크 미탐지 2곳 제외) |
+| 사이트–추적 사업자 쌍 | 362개: 명시 27.3% · 포괄 고지 19.6% · **미명시 53.0%** |
+| 미명시 사업자 보유 사이트 | 27곳 (71.1%) |
 
 ## 7. 법적·윤리적 준수 사항
 

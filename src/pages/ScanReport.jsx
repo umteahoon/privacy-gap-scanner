@@ -19,8 +19,12 @@ export default function ScanReport() {
     const poll = async () => {
       try {
         const r = await fetch(`/api/scan/${id}`);
-        const data = await r.json();
-        if (!r.ok) throw new Error(data.error);
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(data.error || `결과를 불러오지 못했습니다 (HTTP ${r.status}).`);
+        // 작업이 3분 넘게 대기 상태면 워커가 시작되지 않은 것으로 판단
+        if (data.status === 'queued' && Date.now() - Date.parse(data.createdAt) > 180000) {
+          throw new Error('검사가 시작되지 않았습니다. 잠시 후 다시 시도하세요.');
+        }
         if (!alive) return;
         setRec(data);
         if (data.status === 'queued' || data.status === 'running') timer = setTimeout(poll, 2500);

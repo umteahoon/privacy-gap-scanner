@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-10-07T13:22:13.930Z",
+  "generatedAt": "2026-10-07T13:53:27.453Z",
   "totals": {
     "sites": 76,
     "scanned": 48,
     "failed": 28,
-    "policyFound": 44,
+    "policyFound": 38,
     "blocked": 11,
     "robotsExcluded": 15,
     "otherErrors": 2,
-    "sitesWithUndisclosed": 28,
-    "trackingPairs": 393,
-    "undisclosedPairs": 193,
-    "vaguePairs": 89,
+    "sitesWithUndisclosed": 27,
+    "trackingPairs": 362,
+    "undisclosedPairs": 192,
+    "vaguePairs": 71,
     "grades": {
-      "B": 8,
+      "B": 4,
       "C": 10,
-      "A": 7,
-      "D": 5,
+      "A": 6,
+      "N/A": 10,
       "E": 14,
-      "N/A": 4
+      "D": 4
     }
   },
   "byCategory": [
@@ -31,30 +31,30 @@
     },
     {
       "category": "금융",
-      "sites": 4,
-      "avgGap": 0.208,
-      "avgTrackers": 1.5,
-      "withUndisclosed": 1
+      "sites": 2,
+      "avgGap": 0,
+      "avgTrackers": 0.5,
+      "withUndisclosed": 0
     },
     {
       "category": "생활·플랫폼",
-      "sites": 5,
-      "avgGap": 0.325,
-      "avgTrackers": 5.6,
+      "sites": 4,
+      "avgGap": 0.344,
+      "avgTrackers": 4.5,
       "withUndisclosed": 1
     },
     {
       "category": "쇼핑",
-      "sites": 6,
-      "avgGap": 0.284,
-      "avgTrackers": 8.5,
+      "sites": 3,
+      "avgGap": 0.512,
+      "avgTrackers": 12.7,
       "withUndisclosed": 3
     },
     {
       "category": "언론",
-      "sites": 15,
-      "avgGap": 0.748,
-      "avgTrackers": 14.7,
+      "sites": 13,
+      "avgGap": 0.83,
+      "avgTrackers": 14.8,
       "withUndisclosed": 13
     },
     {
@@ -73,16 +73,16 @@
     },
     {
       "category": "콘텐츠",
-      "sites": 4,
-      "avgGap": 0.125,
-      "avgTrackers": 3.8,
+      "sites": 2,
+      "avgGap": 0.25,
+      "avgTrackers": 7.5,
       "withUndisclosed": 2
     }
   ],
   "topEntities": [
     {
       "name": "Google",
-      "sites": 41,
+      "sites": 35,
       "undisclosed": 8,
       "vague": 2,
       "categories": [
@@ -97,7 +97,7 @@
     },
     {
       "name": "카카오",
-      "sites": 32,
+      "sites": 30,
       "undisclosed": 8,
       "vague": 2,
       "categories": [
@@ -109,18 +109,27 @@
     },
     {
       "name": "Criteo",
-      "sites": 24,
+      "sites": 22,
       "undisclosed": 15,
-      "vague": 7,
+      "vague": 5,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "엔라이플 (모비온)",
+      "sites": 19,
+      "undisclosed": 14,
+      "vague": 5,
       "categories": [
         "광고/리타게팅"
       ]
     },
     {
       "name": "네이버",
-      "sites": 22,
-      "undisclosed": 5,
-      "vague": 3,
+      "sites": 18,
+      "undisclosed": 4,
+      "vague": 1,
       "categories": [
         "웹 분석",
         "CDN/정적 리소스",
@@ -131,18 +140,9 @@
     },
     {
       "name": "Meta (Facebook)",
-      "sites": 20,
+      "sites": 17,
       "undisclosed": 3,
-      "vague": 4,
-      "categories": [
-        "광고/리타게팅"
-      ]
-    },
-    {
-      "name": "엔라이플 (모비온)",
-      "sites": 20,
-      "undisclosed": 14,
-      "vague": 6,
+      "vague": 2,
       "categories": [
         "광고/리타게팅"
       ]
@@ -158,35 +158,7 @@
     },
     {
       "name": "와이더플래닛",
-      "sites": 15,
-      "undisclosed": 10,
-      "vague": 4,
-      "categories": [
-        "광고/리타게팅"
-      ]
-    },
-    {
-      "name": "Microsoft (Clarity/Bing)",
-      "sites": 15,
-      "undisclosed": 4,
-      "vague": 4,
-      "categories": [
-        "세션 녹화/히트맵",
-        "광고/리타게팅"
-      ]
-    },
-    {
-      "name": "PubMatic",
       "sites": 14,
-      "undisclosed": 9,
-      "vague": 5,
-      "categories": [
-        "광고/리타게팅"
-      ]
-    },
-    {
-      "name": "OpenX",
-      "sites": 13,
       "undisclosed": 10,
       "vague": 3,
       "categories": [
@@ -194,7 +166,7 @@
       ]
     },
     {
-      "name": "The Trade Desk",
+      "name": "PubMatic",
       "sites": 13,
       "undisclosed": 9,
       "vague": 4,
@@ -203,10 +175,20 @@
       ]
     },
     {
-      "name": "Taboola",
+      "name": "Microsoft (Clarity/Bing)",
       "sites": 12,
-      "undisclosed": 8,
-      "vague": 4,
+      "undisclosed": 4,
+      "vague": 2,
+      "categories": [
+        "세션 녹화/히트맵",
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "OpenX",
+      "sites": 12,
+      "undisclosed": 10,
+      "vague": 2,
       "categories": [
         "광고/리타게팅"
       ]
@@ -221,6 +203,15 @@
       ]
     },
     {
+      "name": "The Trade Desk",
+      "sites": 12,
+      "undisclosed": 9,
+      "vague": 3,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
       "name": "Magnite (Rubicon)",
       "sites": 11,
       "undisclosed": 6,
@@ -230,37 +221,37 @@
       ]
     },
     {
-      "name": "Opera Ads",
+      "name": "Taboola",
       "sites": 11,
       "undisclosed": 8,
       "vague": 3,
+      "categories": [
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "Opera Ads",
+      "sites": 10,
+      "undisclosed": 8,
+      "vague": 2,
       "categories": [
         "광고/리타게팅"
       ]
     },
     {
       "name": "Temu",
-      "sites": 11,
+      "sites": 10,
       "undisclosed": 8,
-      "vague": 3,
+      "vague": 2,
       "categories": [
         "광고/리타게팅"
       ]
     },
     {
       "name": "Lotame",
-      "sites": 10,
-      "undisclosed": 7,
-      "vague": 3,
-      "categories": [
-        "광고/리타게팅"
-      ]
-    },
-    {
-      "name": "ID5",
       "sites": 9,
-      "undisclosed": 6,
-      "vague": 3,
+      "undisclosed": 7,
+      "vague": 2,
       "categories": [
         "광고/리타게팅"
       ]
@@ -272,6 +263,15 @@
       "vague": 3,
       "categories": [
         "웹 분석",
+        "광고/리타게팅"
+      ]
+    },
+    {
+      "name": "ID5",
+      "sites": 8,
+      "undisclosed": 6,
+      "vague": 2,
+      "categories": [
         "광고/리타게팅"
       ]
     }
@@ -358,6 +358,19 @@
     {
       "id": "S07",
       "category": "금융",
+      "policyFound": false,
+      "trackingEntities": 0,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": null,
+      "thirdPartyCookies": 0,
+      "grade": "N/A"
+    },
+    {
+      "id": "S08",
+      "category": "금융",
       "policyFound": true,
       "trackingEntities": 1,
       "explicit": 1,
@@ -369,30 +382,17 @@
       "grade": "A"
     },
     {
-      "id": "S08",
-      "category": "금융",
-      "policyFound": true,
-      "trackingEntities": 3,
-      "explicit": 1,
-      "vague": 2,
-      "undisclosed": 0,
-      "gapIndex": 0.333,
-      "policyCoverage": 0.333,
-      "thirdPartyCookies": 3,
-      "grade": "B"
-    },
-    {
       "id": "S09",
       "category": "금융",
-      "policyFound": true,
-      "trackingEntities": 2,
-      "explicit": 1,
+      "policyFound": false,
+      "trackingEntities": 3,
+      "explicit": 0,
       "vague": 0,
-      "undisclosed": 1,
-      "gapIndex": 0.5,
-      "policyCoverage": 0.5,
-      "thirdPartyCookies": 0,
-      "grade": "D"
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 3,
+      "grade": "N/A"
     },
     {
       "id": "S10",
@@ -423,15 +423,15 @@
     {
       "id": "S12",
       "category": "생활·플랫폼",
-      "policyFound": true,
+      "policyFound": false,
       "trackingEntities": 10,
-      "explicit": 5,
-      "vague": 5,
+      "explicit": 0,
+      "vague": 0,
       "undisclosed": 0,
-      "gapIndex": 0.25,
-      "policyCoverage": 0.5,
+      "gapIndex": 0,
+      "policyCoverage": 0,
       "thirdPartyCookies": 52,
-      "grade": "B"
+      "grade": "N/A"
     },
     {
       "id": "S13",
@@ -462,18 +462,31 @@
     {
       "id": "S15",
       "category": "쇼핑",
-      "policyFound": true,
+      "policyFound": false,
       "trackingEntities": 1,
-      "explicit": 1,
+      "explicit": 0,
       "vague": 0,
       "undisclosed": 0,
       "gapIndex": 0,
-      "policyCoverage": 1,
+      "policyCoverage": 0,
       "thirdPartyCookies": 3,
-      "grade": "A"
+      "grade": "N/A"
     },
     {
       "id": "S16",
+      "category": "쇼핑",
+      "policyFound": false,
+      "trackingEntities": 3,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 11,
+      "grade": "N/A"
+    },
+    {
+      "id": "S17",
       "category": "쇼핑",
       "policyFound": false,
       "trackingEntities": 9,
@@ -484,19 +497,6 @@
       "policyCoverage": 0,
       "thirdPartyCookies": 19,
       "grade": "N/A"
-    },
-    {
-      "id": "S17",
-      "category": "쇼핑",
-      "policyFound": true,
-      "trackingEntities": 3,
-      "explicit": 2,
-      "vague": 1,
-      "undisclosed": 0,
-      "gapIndex": 0.167,
-      "policyCoverage": 0.667,
-      "thirdPartyCookies": 11,
-      "grade": "B"
     },
     {
       "id": "S18",
@@ -541,6 +541,19 @@
       "id": "S21",
       "category": "언론",
       "policyFound": false,
+      "trackingEntities": 12,
+      "explicit": 0,
+      "vague": 0,
+      "undisclosed": 0,
+      "gapIndex": 0,
+      "policyCoverage": 0,
+      "thirdPartyCookies": 20,
+      "grade": "N/A"
+    },
+    {
+      "id": "S22",
+      "category": "언론",
+      "policyFound": false,
       "trackingEntities": 16,
       "explicit": 0,
       "vague": 0,
@@ -549,19 +562,6 @@
       "policyCoverage": 0,
       "thirdPartyCookies": 57,
       "grade": "N/A"
-    },
-    {
-      "id": "S22",
-      "category": "언론",
-      "policyFound": true,
-      "trackingEntities": 12,
-      "explicit": 2,
-      "vague": 10,
-      "undisclosed": 0,
-      "gapIndex": 0.417,
-      "policyCoverage": 0.167,
-      "thirdPartyCookies": 20,
-      "grade": "B"
     },
     {
       "id": "S23",

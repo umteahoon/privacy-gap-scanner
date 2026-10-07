@@ -43,7 +43,7 @@ export default function Research() {
           </div>
         </section>
         <section className="card">
-          <h2>업종별</h2>
+          <h2>업종별 <span className="count">처리방침 확보 사이트</span></h2>
           <div className="table-scroll">
             <table>
               <thead><tr><th>업종</th><th>사이트</th><th>평균 추적 사업자</th><th>미명시 보유</th><th>평균 Gap</th></tr></thead>

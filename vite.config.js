@@ -16,7 +16,8 @@ function localApi() {
         try {
           if (req.method === 'POST' && req.url === '/api/scan') {
             let raw = ''; for await (const c of req) raw += c;
-            const body = JSON.parse(raw || '{}');
+            let body;
+            try { body = JSON.parse(raw || '{}'); } catch { return send(res, 400, { error: '잘못된 요청 본문' }); }
             const r = await svc.createScan(store, { url: body.url, policyUrl: body.policyUrl, ip: req.socket.remoteAddress, agree: body.agree });
             if (!r.reused) svc.runScan(store, r.id);
             return send(res, 200, r);

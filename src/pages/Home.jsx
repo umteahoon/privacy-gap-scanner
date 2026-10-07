@@ -24,8 +24,8 @@ export default function Home() {
         method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ url, policyUrl: policyUrl || undefined, agree }),
       });
-      const data = await r.json();
-      if (!r.ok) throw new Error(data.error || '검사를 시작하지 못했습니다.');
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.error || `검사를 시작하지 못했습니다 (HTTP ${r.status}).`);
       nav(`/scan/${data.id}`);
     } catch (err) {
       setError(err.message);
