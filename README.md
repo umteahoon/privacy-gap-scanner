@@ -116,7 +116,7 @@
 브라우저 ──POST /api/scan──▶ scan-create 함수
                                ├ URL 검증 · SSRF 차단 · 요청 횟수 제한
                                ├ Blobs에 작업 등록 (status: queued)
-                               └─▶ scan-worker 백그라운드 함수 호출 (비밀키 검증)
+                               └─▶ scan-worker 백그라운드 함수 호출 (일회용 토큰 검증)
                                      └ 검사 실행 → 진행 상황/결과를 Blobs에 기록
 브라우저 ──GET /api/scan/:id (2.5초마다)──▶ scan-get 함수 → 진행 상황 / 리포트
 ```
@@ -162,16 +162,15 @@ $env:ANTHROPIC_API_KEY="sk-ant-..."
 
 ## 5. Netlify 배포
 
-1. 이 저장소를 Netlify에서 **Add new site → Import an existing project**로 연결합니다. 빌드 설정은 `netlify.toml`이 자동으로 적용합니다.
-2. **Site configuration → Environment variables**에 아래 값을 추가합니다.
+1. 이 저장소를 Netlify에서 **Add new site → Import an existing project**로 연결합니다. 빌드 설정은 `netlify.toml`이 자동으로 적용되므로 **필수 환경변수 없이 바로 배포됩니다.**
+2. 필요하면 **Site configuration → Environment variables**에서 아래 선택 값을 조정합니다.
 
-| 변수 | 필수 | 설명 |
-|---|---|---|
-| `SCAN_WORKER_SECRET` | ✅ | 내부 워커 호출 보호용 임의의 긴 문자열 (예: `openssl rand -hex 32` 결과). IP 해시에도 사용 |
-| `ANTHROPIC_API_KEY` | | LLM 약관 추출 사용 시 |
-| `SCAN_LIMIT_PER_IP_HOUR` | | IP당 시간당 검사 횟수 (기본 10) |
-| `SCAN_LIMIT_PER_DAY` | | 전체 일일 검사 횟수 (기본 300) |
-| `SCAN_RETENTION_DAYS` | | 검사 결과 보관 일수 (기본 30) |
+| 변수 | 설명 |
+|---|---|
+| `ANTHROPIC_API_KEY` | LLM 약관 추출 사용 시 |
+| `SCAN_LIMIT_PER_IP_HOUR` | IP당 시간당 검사 횟수 (기본 10) |
+| `SCAN_LIMIT_PER_DAY` | 전체 일일 검사 횟수 (기본 300) |
+| `SCAN_RETENTION_DAYS` | 검사 결과 보관 일수 (기본 30) |
 
 3. 배포하면 Netlify Blobs는 자동으로 활성화됩니다. 따로 설정할 것은 없습니다.
 
@@ -212,7 +211,7 @@ npm run eval > experiment/eval.json                    # 정답지 라벨링 후
 | 최소 접근 | 비로그인 상태로 메인 페이지와 내부 링크 최대 2개만 열람합니다. 로그인·회원가입·폼 입력·결제 경로는 방문하지 않습니다 |
 | 대상 부하 최소화 | 같은 URL은 30분간 결과를 재사용합니다. IP당·일일 요청 횟수를 제한합니다 |
 | 데이터 최소화 | 대상 사이트의 쿠키 값과 요청 파라미터 값은 저장하지 않습니다 (이름·도메인만 저장) |
-| 이용자 개인정보 | IP 원문은 저장하지 않고 HMAC 값만 1시간 동안 사용합니다. 검사 결과는 30일 후 자동 삭제됩니다 |
+| 이용자 개인정보 | IP 원문은 저장하지 않고, 서버가 자동 생성한 비공개 값으로 만든 HMAC 값만 1시간 동안 사용합니다. 검사 결과는 30일 후 자동 삭제됩니다 |
 | 결과 공개 범위 | 공개 목록이 없습니다. 추측할 수 없는 UUID 주소로만 조회할 수 있고, `noindex`로 검색 노출을 차단합니다 |
 | 명예훼손 방지 | 결과는 "기술적 불일치 탐지"이며 법률 판단이 아님을 화면에 명시합니다. 실험 결과는 사이트명을 익명화합니다 |
 | 이용 동의 | 검사 전 이용 안내 동의 체크가 필수입니다 |
@@ -223,7 +222,7 @@ npm run eval > experiment/eval.json                    # 정답지 라벨링 후
   - IP 직접 입력과 `localhost` 등 로컬 도메인을 거부합니다.
   - DNS 조회 결과가 사설망이면 거부합니다. 예: `localtest.me` → 127.0.0.1
   - 브라우저의 리다이렉트·하위 요청 중 사설 IP나 localhost로 가는 요청도 차단합니다.
-- **내부 워커 보호:** 백그라운드 워커는 `SCAN_WORKER_SECRET` 헤더를 상수 시간 비교로 검증합니다.
+- **내부 워커 보호:** 검사 요청마다 서버가 일회용 토큰을 만들어 Blobs에만 저장하고, 백그라운드 워커는 이 토큰을 상수 시간 비교로 검증한 뒤 즉시 폐기합니다. 토큰은 결과 조회 API로 노출되지 않습니다.
 - **입력 제한:** 요청 본문 8KB, URL 2048자, http/https만 허용하며, URL에 계정 정보가 들어 있으면 거부합니다.
 - **보안 헤더:** CSP, HSTS, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy (`netlify.toml`)
 - **XSS:** 외부에서 가져온 문자열은 React 텍스트로만 렌더링하고, 링크는 http/https일 때만 만듭니다.
