@@ -80,7 +80,7 @@
 - 새 창, 모달, iframe, 여러 버전이 나열된 목록형 페이지까지 따라가 본문을 추출합니다.
 - 본문 길이가 충분하고 "개인정보", "수집·이용·제공·위탁" 같은 표현이 있을 때만 처리방침으로 인정합니다.
 - 본문은 공백과 기호를 제거한 정규화 문자열로 바꿉니다. 이때 **원문 위치 대응표**를 함께 만들어 두어, 판정 근거를 원문 그대로 잘라 보여줄 수 있습니다.
-- **(선택)** `ANTHROPIC_API_KEY`가 설정되어 있으면 Claude에 JSON 스키마를 지정해 고지된 사업자명, 역할(제3자 제공·위탁·행태정보), 포괄 고지 문구를 추가로 추출합니다. 키가 없으면 규칙 기반 판정만 사용합니다.
+- **(선택)** `LLM_EXTRACTION=on`이면 Claude에 JSON 스키마를 지정해 고지된 사업자명, 역할(제3자 제공·위탁·행태정보), 포괄 고지 문구를 추가로 추출합니다. 기본은 꺼져 있으며 규칙 기반 판정만 사용합니다.
 
 ### 3.4 ③ 교차 대조 알고리즘 (`lib/trackers.js`, `lib/disclosure.js`, `lib/score.js`)
 
@@ -153,12 +153,15 @@ node cli/scan.js https://www.example.co.kr --policy https://www.example.co.kr/pr
 
 ### 4.4 LLM 추출 사용 (선택)
 
+LLM 추출은 기본으로 꺼져 있습니다. 켜려면 `LLM_EXTRACTION=on`과 Anthropic API 키가 모두 필요합니다.
+
 ```bash
 # macOS / Linux
+export LLM_EXTRACTION=on
 export ANTHROPIC_API_KEY=sk-ant-...
-# Windows PowerShell
-$env:ANTHROPIC_API_KEY="sk-ant-..."
 ```
+
+> 검사 1회마다 처리방침 전문(수만 토큰)을 Claude에 보내므로 비용이 발생합니다.
 
 ## 5. Netlify 배포
 
@@ -167,7 +170,8 @@ $env:ANTHROPIC_API_KEY="sk-ant-..."
 
 | 변수 | 설명 |
 |---|---|
-| `ANTHROPIC_API_KEY` | LLM 약관 추출 사용 시 |
+| `LLM_EXTRACTION` | `on`이면 LLM 약관 추출 사용 (기본 꺼짐). Netlify AI Gateway가 켜진 팀은 키가 자동 제공되며, 검사마다 크레딧이 차감됩니다 |
+| `ANTHROPIC_API_KEY` | 직접 발급한 키를 쓸 때 (AI Gateway 미사용 시) |
 | `SCAN_LIMIT_PER_IP_HOUR` | IP당 시간당 검사 횟수 (기본 10) |
 | `SCAN_LIMIT_PER_DAY` | 전체 일일 검사 횟수 (기본 300) |
 | `SCAN_RETENTION_DAYS` | 검사 결과 보관 일수 (기본 30) |
