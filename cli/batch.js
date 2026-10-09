@@ -1,23 +1,33 @@
-// 실험용 일괄 스캔: node cli/batch.js [experiment/sites.csv] [--concurrency 3]
-// 결과: experiment/results/<도메인>.json, experiment/summary.csv, experiment/labels.csv(정답지 라벨링 양식),
+// 실험용 일괄 스캔: node cli/batch.js [experiment/sites.csv] [--concurrency 3] [--out experiment/runs/<이름>] [--delay 3000]
+// 결과(기본): experiment/results/<도메인>.json, experiment/summary.csv, experiment/labels.csv(정답지 라벨링 양식),
 //       public/experiment-summary.json(웹 대시보드용, 사이트명 익명화)
+// --out 지정 시: 모든 결과를 그 폴더 안에만 저장 (논문 원자료·웹 대시보드 파일은 건드리지 않음)
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { scanSite, reanalyze } from '../lib/scan.js';
 import { CATEGORY_LABELS } from '../lib/trackers.js';
 
 const args = process.argv.slice(2);
-const listPath = args.find(a => !a.startsWith('--') && !/^\d+$/.test(a)) || 'experiment/sites.csv';
+const valueArgs = new Set(['--concurrency', '--out', '--delay'].map(k => args[args.indexOf(k) + 1]).filter(Boolean));
+const listPath = args.find(a => !a.startsWith('--') && !valueArgs.has(a)) || 'experiment/sites.csv';
 const ci = args.indexOf('--concurrency');
 const concurrency = ci >= 0 ? +args[ci + 1] : 3;
 const force = args.includes('--force');
 const reanalyzeOnly = args.includes('--reanalyze');   // 기존 원시 데이터로 판정만 다시 수행
+const oi = args.indexOf('--out');
+const OUT = oi >= 0 ? args[oi + 1].replace(/\/$/, '') : null;
+const di = args.indexOf('--delay');
+const DELAY = di >= 0 ? +args[di + 1] : (OUT ? 3000 : 0);   // 사이트 간 대기 (대상 서버 부하 완화)
+const BASE = OUT || 'experiment';
+const RESULTS = `${BASE}/results`;
+const DASH = OUT ? `${OUT}/experiment-summary.json` : 'public/experiment-summary.json';
 
 const rows = readFileSync(listPath, 'utf8').trim().split(/\r?\n/).slice(1).map(l => {
   const [category, url, policy_url] = l.split(',');
   return { category, url, policy_url: policy_url || undefined };
 });
-mkdirSync('experiment/results', { recursive: true });
-const fileFor = url => `experiment/results/${new URL(url).hostname.replace(/^www\./, '')}.json`;
+mkdirSync(RESULTS, { recursive: true });
+const fileFor = url => `${RESULTS}/${new URL(url).hostname.replace(/^www\./, '')}.json`;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 let next = 0;
 async function worker() {
@@ -44,6 +54,7 @@ async function worker() {
       writeFileSync(f, JSON.stringify({ url: row.url, siteCategory: row.category, error: e.message.split('\n')[0], excluded: e.code || null, scannedAt: new Date().toISOString() }, null, 2));
       console.error(`${e.code ? 'SKIP' : 'FAIL'} ${row.url}  ${e.message.split('\n')[0]}`);
     }
+    if (DELAY) await sleep(DELAY);
   }
 }
 await Promise.all(Array.from({ length: concurrency }, worker));
@@ -63,11 +74,11 @@ for (const r of results) {
     labels.push([site, e.name, e.categories.join('|'), e.hosts.join(' '), e.status, e.evidence || '', '', '', '', '']);
   }
 }
-writeFileSync('experiment/summary.csv', '﻿' + summary.map(r => r.map(csv).join(',')).join('\n'));
-if (!existsSync('experiment/labels.csv') || force) {
-  writeFileSync('experiment/labels.csv', '﻿' + labels.map(r => r.map(csv).join(',')).join('\n'));
+writeFileSync(`${BASE}/summary.csv`, '﻿' + summary.map(r => r.map(csv).join(',')).join('\n'));
+if (!existsSync(`${BASE}/labels.csv`) || force) {
+  writeFileSync(`${BASE}/labels.csv`, '﻿' + labels.map(r => r.map(csv).join(',')).join('\n'));
 } else {
-  writeFileSync('experiment/labels.new.csv', '﻿' + labels.map(r => r.map(csv).join(',')).join('\n'));
+  writeFileSync(`${BASE}/labels.new.csv`, '﻿' + labels.map(r => r.map(csv).join(',')).join('\n'));
   console.error('labels.csv 가 이미 있어 labels.new.csv 로 저장 (기존 라벨 보존)');
 }
 
@@ -111,6 +122,6 @@ const out = {
   topEntities: Object.values(entityFreq).map(f => ({ ...f, categories: [...f.categories] })).sort((a, b) => b.sites - a.sites).slice(0, 20),
   sites: anon,
 };
-mkdirSync('public', { recursive: true });
-writeFileSync('public/experiment-summary.json', JSON.stringify(out, null, 2));
+if (!OUT) mkdirSync('public', { recursive: true });
+writeFileSync(DASH, JSON.stringify(out, null, 2));
 console.error(`\n완료: ${ok.length}/${rows.length} 성공, 처리방침 발견 ${withPolicy.length}, 미명시 트래커 보유 사이트 ${out.totals.sitesWithUndisclosed}`);
