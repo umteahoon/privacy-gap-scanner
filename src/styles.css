@@ -188,3 +188,37 @@ nav a { white-space: nowrap; }
   .brand-text { display: none; }
   nav a { padding: 6px 8px; font-size: 14px; }
 }
+
+/* 처리방침 보완 초안 · 리포트 인쇄 */
+.print-only { display: none; }
+.suggestion-print { white-space: pre-wrap; font-family: inherit; font-size: 10.5px; line-height: 1.6; margin: 8px 0 0; }
+.report-actions { display: flex; justify-content: flex-end; margin: 16px 0 -4px; }
+.suggestion-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.suggestion-actions button, .report-actions button {
+  font: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 10px; border: 0;
+  background: var(--accent); color: #fff; cursor: pointer;
+}
+.suggestion-actions .btn-secondary, .report-actions .btn-secondary {
+  background: var(--surface); color: var(--text); border: 1px solid var(--border);
+}
+.suggestion-actions button:hover, .report-actions button:hover { filter: brightness(1.05); }
+.suggestion-text {
+  width: 100%; margin-top: 8px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--bg); color: var(--text); font-family: inherit; font-size: 13.5px; line-height: 1.7; resize: vertical; white-space: pre-wrap;
+}
+.suggestion { border-left: 4px solid var(--accent); }
+
+@media print {
+  .topbar, .footer, .no-print, .center { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11px; }
+  .card { box-shadow: none; border: 1px solid #ccc; }
+  .report-head, .alert { break-inside: avoid; }
+  tr { break-inside: avoid; }
+  h2 { break-after: avoid; }
+  .table-scroll { display: block; }
+  table { break-inside: auto; }
+  .suggestion-text { display: none !important; }
+  .print-only { display: block !important; }
+  a { color: #000; text-decoration: underline; }
+  .table-scroll { overflow: visible; }
+}

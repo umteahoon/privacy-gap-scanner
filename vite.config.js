@@ -20,7 +20,7 @@ function localApi() {
             try { body = JSON.parse(raw || '{}'); } catch { return send(res, 400, { error: '잘못된 요청 본문' }); }
             const r = await svc.createScan(store, { url: body.url, policyUrl: body.policyUrl, ip: req.socket.remoteAddress, agree: body.agree });
             if (!r.reused) svc.runScan(store, r.id);
-            return send(res, 200, r);
+            return send(res, 200, { id: r.id, reused: r.reused });   // 배포 함수와 동일하게 내부 토큰은 응답하지 않음
           }
           const m = req.url.match(/^\/api\/scan\/([0-9a-f-]{36})$/);
           if (req.method === 'GET' && m) {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Grade, Chip, Metric, CATEGORY, GRADE_DESC, STATUS, pct } from '../ui.jsx';
+import { buildPolicySuggestion } from '../../lib/suggest.js';
 
 const STAGES = [
   { key: 'runtime', label: '런타임 동작 수집' },
@@ -76,6 +77,9 @@ function Report({ rec }) {
   const tpCookies = r.cookies.filter(c => c.thirdParty);
   return (
     <>
+      <div className="report-actions no-print">
+        <button type="button" className="btn-secondary" onClick={() => printReport(r)}>PDF로 저장 / 인쇄</button>
+      </div>
       <section className="card report-head">
         <div className="report-grade">
           <Grade g={m.grade} />
@@ -115,6 +119,8 @@ function Report({ rec }) {
         <p className="muted small">실제 데이터 전송이 관측된 사업자별로 처리방침 고지 여부를 판정했습니다. {Object.entries(STATUS).slice(0, 3).map(([k, v]) => `${v.label}: ${v.desc}`).join(' · ')}</p>
         <EntityTable rows={tracking} />
       </section>
+
+      <Suggestion result={r} />
 
       {other.length > 0 && (
         <section className="card">
@@ -163,6 +169,47 @@ function Report({ rec }) {
 
       <p className="center"><Link to="/">← 다른 사이트 검사하기</Link></p>
     </>
+  );
+}
+
+// 인쇄 시 접힌 영역(쿠키 목록)까지 펼쳐서 출력하고, PDF 기본 파일명이 되도록 문서 제목을 잠시 바꿈
+function printReport(r) {
+  const closed = [...document.querySelectorAll('details:not([open])')];
+  const title = document.title;
+  closed.forEach(d => d.setAttribute('open', ''));
+  document.title = `처리방침점검_${r.siteHost}_${r.scannedAt.slice(0, 10)}`;
+  window.addEventListener('afterprint', () => { closed.forEach(d => d.removeAttribute('open')); document.title = title; }, { once: true });
+  window.print();
+}
+
+function Suggestion({ result }) {
+  const [copied, setCopied] = useState(false);
+  const s = buildPolicySuggestion(result);
+  if (!s) return null;
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(s.text); setCopied(true); setTimeout(() => setCopied(false), 2000); }
+    catch { setCopied(false); }
+  };
+  const download = () => {
+    const url = URL.createObjectURL(new Blob(['﻿' + s.text], { type: 'text/plain;charset=utf-8' }));
+    const a = Object.assign(document.createElement('a'), { href: url, download: `처리방침_보완초안_${result.siteHost}.txt` });
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+  return (
+    <section className="card suggestion">
+      <h2>처리방침 보완 초안 <span className="count">{s.count}개 사업자</span></h2>
+      <p className="muted small">
+        미명시 {s.undisclosed}개, 포괄 고지 {s.vague}개 사업자를 이름까지 고지하도록 만든 조항 초안입니다.
+        관측한 쿠키 유효기간을 근거로 넣었으며, <b>정식 상호·거부 안내 링크 등 [ ] 부분은 직접 확인해 채워야 합니다.</b> 법률 검토 전 참고용입니다.
+      </p>
+      <textarea className="suggestion-text" readOnly value={s.text} rows={Math.min(24, s.text.split('\n').length + 1)} aria-label="처리방침 보완 초안" />
+      <pre className="suggestion-print print-only">{s.text}</pre>
+      <div className="suggestion-actions no-print">
+        <button type="button" onClick={copy}>{copied ? '복사됨' : '문구 복사'}</button>
+        <button type="button" className="btn-secondary" onClick={download}>텍스트 파일로 저장</button>
+      </div>
+    </section>
   );
 }
 
