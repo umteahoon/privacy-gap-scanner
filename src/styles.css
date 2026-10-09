@@ -50,7 +50,9 @@ main { padding: 28px 16px 40px; display: flex; flex-direction: column; gap: 18px
 .muted { color: var(--muted); }
 .small { font-size: 13px; }
 .center { text-align: center; }
-.mono { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: 12.5px; white-space: pre-line; word-break: break-all; }
+.mono { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: 12.5px; white-space: pre-line; word-break: normal; overflow-wrap: anywhere; }
+.nowrap { white-space: nowrap; }
+.hosts div { white-space: nowrap; }   /* 화면: 도메인은 한 줄 유지, 좁으면 표가 가로 스크롤 */
 .error { color: var(--bad); font-weight: 500; }
 .eyebrow { color: var(--accent); font-weight: 600; font-size: 13px; margin: 0 0 6px; letter-spacing: .02em; }
 .count { color: var(--muted); font-weight: 500; font-size: .9em; }
@@ -208,17 +210,57 @@ nav a { white-space: nowrap; }
 }
 .suggestion { border-left: 4px solid var(--accent); }
 
+@page { size: A4; margin: 12mm 11mm; }
 @media print {
+  /* 인쇄 설정의 "배경 그래픽"이 꺼져 있어도 등급·판정 색을 유지 */
+  html, body, * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .topbar, .footer, .no-print, .center { display: none !important; }
-  body { background: #fff; color: #000; font-size: 11px; }
-  .card { box-shadow: none; border: 1px solid #ccc; }
-  .report-head, .alert { break-inside: avoid; }
+  body { background: #fff; color: #111; font-size: 10.5px; line-height: 1.55; }
+  main.wrap { max-width: none; padding: 0; }
+  .card { box-shadow: none; border: 1px solid #d5d9e0; border-radius: 8px; padding: 12px 14px; margin: 0 0 8px; }
+  h2 { font-size: 13.5px; margin-bottom: 6px; break-after: avoid; }
+  .report-head, .alert, .diag, .metric { break-inside: avoid; }
+  .metrics { grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .metric-value { font-size: 18px; }
+  .grade-lg { width: 54px; height: 54px; font-size: 1.6rem; border-radius: 12px; }
+  a { color: #111; text-decoration: underline; overflow-wrap: anywhere; }
+  .muted.small, .small { font-size: 9.5px; }
+
+  /* 표: 열 너비 고정, 행은 쪽 경계에서 나누지 않음 */
+  .table-scroll { overflow: visible; margin: 0; }
+  table { table-layout: fixed; width: 100%; font-size: 9.5px; break-inside: auto; }
+  thead { display: table-header-group; }
   tr { break-inside: avoid; }
-  h2 { break-after: avoid; }
-  .table-scroll { display: block; }
-  table { break-inside: auto; }
+  th { font-size: 9px; padding: 5px 6px; white-space: normal; }
+  td { padding: 6px; }
+  .mono { font-size: 8.8px; line-height: 1.45; }
+  .entities td:first-child, .entities td:last-child { min-width: 0; }
+  .hosts div { white-space: normal; }   /* 인쇄: 점(.) 단위로만 줄바꿈 */
+  .entities th:nth-child(1) { width: 20%; } .entities th:nth-child(2) { width: 15%; } .entities th:nth-child(3) { width: 9%; }
+  .entities th:nth-child(4) { width: 31%; } .entities th:nth-child(5) { width: 25%; }
+  .chip { font-size: 9px; padding: 1px 6px; }
+  .cookies th:nth-child(1) { width: 27%; } .cookies th:nth-child(2) { width: 36%; } .cookies th:nth-child(3) { width: 8%; }
+  .cookies th:nth-child(4) { width: 14%; } .cookies th:nth-child(5) { width: 15%; }
+  .tag { font-size: 9px; padding: 2px 7px; }
+
+  /* 보완 초안: 화면용 입력칸 대신 전체 본문 출력, 읽기 좋은 글자 크기·줄 간격 */
   .suggestion-text { display: none !important; }
   .print-only { display: block !important; }
-  a { color: #000; text-decoration: underline; }
-  .table-scroll { overflow: visible; }
+  .suggestion-print { font-size: 10.5px; line-height: 1.7; overflow-wrap: anywhere; word-break: keep-all; padding: 10px 12px; border: 1px solid #d5d9e0; border-radius: 6px; background: #fafbfc; }
 }
+
+/* 진단 요약 및 조치 권고 */
+.diag-list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; }
+.diag { display: grid; grid-template-columns: 76px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.diag p { margin: 4px 0 0; }
+.diag-action { color: var(--text); }
+.diag-badge { display: inline-block; text-align: center; font-size: 12px; font-weight: 700; padding: 3px 0; border-radius: 6px; }
+.diag-badge-high { background: var(--bad-soft); color: var(--bad); }
+.diag-badge-medium { background: var(--warn-soft); color: var(--warn); }
+.diag-badge-check { background: var(--accent-soft); color: var(--accent); }
+.diag-badge-info { background: var(--bg); color: var(--muted); }
+.diag-high { border-left: 4px solid var(--bad); }
+.diag-medium { border-left: 4px solid var(--warn); }
+.diag-check { border-left: 4px solid var(--accent); }
+@media (max-width: 560px) { .diag { grid-template-columns: 1fr; gap: 6px; } .diag-badge { width: 72px; } }
+@media print { .diag { break-inside: avoid; } .diagnosis h2 { break-after: avoid; } }

@@ -2,6 +2,14 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Grade, Chip, Metric, CATEGORY, GRADE_DESC, STATUS, pct } from '../ui.jsx';
 import { buildPolicySuggestion } from '../../lib/suggest.js';
+import { diagnose, LEVELS } from '../../lib/diagnose.js';
+
+// 도메인·쿠키 이름은 점(.)·밑줄(_)·하이픈(-) 뒤에서만 줄바꿈되도록 <wbr> 삽입 (글자 중간 끊김 방지)
+function Breakable({ text }) {
+  const parts = String(text).split(/(?<=[._-])/);
+  return <>{parts.map((p, i) => <span key={i}>{p}{i < parts.length - 1 && <wbr />}</span>)}</>;
+}
+const ymd = sec => { const d = new Date(sec * 1000); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
 
 const STAGES = [
   { key: 'runtime', label: '런타임 동작 수집' },
@@ -104,11 +112,12 @@ function Report({ rec }) {
         </p>
       </section>
 
-      {(m.cookieNotMentioned || m.piiPatternHints?.length > 0) && (
+      <Diagnosis result={r} />
+
+      {m.piiPatternHints?.length > 0 && (
         <section className="card alert">
           <h3>추가 확인 사항</h3>
           <ul>
-            {m.cookieNotMentioned && <li>쿠키가 생성되지만 처리방침에 쿠키 관련 고지가 없습니다.</li>}
             {m.piiPatternHints?.map(f => <li key={f.name}><b>{f.name}</b>(으)로 {f.pii.join(', ')}와 형태가 같은 문자열이 전송되었습니다. 로그인하지 않은 상태의 검사이므로 실제 개인정보가 아닐 수 있습니다(참고용, 등급 미반영).</li>)}
           </ul>
         </section>
@@ -152,14 +161,14 @@ function Report({ rec }) {
       <details className="card">
         <summary><h2>쿠키 목록 <span className="count">{r.cookies.length}</span> (제3자 {tpCookies.length})</h2></summary>
         <div className="table-scroll">
-          <table>
+          <table className="cookies">
             <thead><tr><th>이름</th><th>도메인</th><th>구분</th><th>사업자</th><th>만료</th></tr></thead>
             <tbody>
               {r.cookies.map((c, i) => (
                 <tr key={i}>
-                  <td className="mono">{c.name}</td><td className="mono">{c.domain}</td>
-                  <td>{c.thirdParty ? '제3자' : '자사'}</td><td>{c.entity || '–'}</td>
-                  <td>{c.expires > 0 ? new Date(c.expires * 1000).toLocaleDateString('ko-KR') : '세션'}</td>
+                  <td className="mono"><Breakable text={c.name} /></td><td className="mono"><Breakable text={c.domain} /></td>
+                  <td className="nowrap">{c.thirdParty ? '제3자' : '자사'}</td><td>{c.entity || '–'}</td>
+                  <td className="nowrap">{c.expires > 0 ? ymd(c.expires) : '세션'}</td>
                 </tr>
               ))}
             </tbody>
@@ -169,6 +178,32 @@ function Report({ rec }) {
 
       <p className="center"><Link to="/">← 다른 사이트 검사하기</Link></p>
     </>
+  );
+}
+
+function Diagnosis({ result }) {
+  const items = diagnose(result);
+  const counts = Object.fromEntries(Object.keys(LEVELS).map(k => [k, items.filter(i => i.level === k).length]));
+  return (
+    <section className="card diagnosis">
+      <h2>진단 요약 및 조치 권고</h2>
+      <p className="muted small">
+        {Object.entries(LEVELS).filter(([k]) => counts[k]).map(([k, v]) => `${v.label} ${counts[k]}건`).join(' · ')}
+        {' — '}자동 검사로 확인한 고지 누락 가능성과 조치 방향입니다. 법률 위반 여부에 대한 판단이 아니며, 최종 반영 전 담당자 확인과 법률 검토를 권장합니다.
+      </p>
+      <ol className="diag-list">
+        {items.map((it, i) => (
+          <li key={i} className={`diag diag-${it.level}`}>
+            <span className={`diag-badge diag-badge-${it.level}`}>{LEVELS[it.level].label}</span>
+            <div>
+              <b>{it.title}</b>
+              <p className="small">{it.detail}</p>
+              <p className="small diag-action"><b>조치:</b> {it.action}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 
@@ -227,7 +262,10 @@ function EntityTable({ rows, compact }) {
               <td><b>{e.name}</b><div className="small muted">요청 {e.requests}건{e.setsCookie ? ' · 쿠키 생성' : ''}{e.idParams?.length ? ` · 식별 파라미터 ${e.idParams.join(', ')}` : ''}</div></td>
               <td>{e.categories.map(c => CATEGORY[c] || c).join(', ')}</td>
               {!compact && <td><Chip status={e.status} /></td>}
-              <td className="mono small">{e.hosts.slice(0, 4).join('\n')}{e.hosts.length > 4 ? `\n외 ${e.hosts.length - 4}개` : ''}</td>
+              <td className="mono small hosts">
+                {e.hosts.slice(0, 4).map(h => <div key={h}><Breakable text={h} /></div>)}
+                {e.hosts.length > 4 && <div className="muted">외 {e.hosts.length - 4}개</div>}
+              </td>
               {!compact && <td className="small">{e.evidence ? <>“…{e.evidence}…”<div className="muted">매칭어: {e.matched}{e.method === 'llm' ? ' (LLM)' : ''}</div></> : <span className="muted">–</span>}</td>}
             </tr>
           ))}
