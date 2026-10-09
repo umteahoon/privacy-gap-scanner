@@ -1,8 +1,11 @@
 // 평가자 2명이 각자 채운 파일을 labels.csv 에 합친다.
-// 사용: node cli/merge-labels.js <평가자1.csv> <평가자2.csv>
+// 사용: node cli/merge-labels.js <평가자1.csv|.xlsx> <평가자2.csv|.xlsx>
 //   - 각 파일은 labels_annotator_sample.csv(또는 labels_annotator.csv)를 복사해 annotator1 / annotator2 열만 채운 것
 //   - 두 판정이 같으면 gold 자동 기입, 다르면 비워 두고 목록 출력 → 협의 후 labels.csv 의 gold 열에 직접 기입
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 function parseCsv(text) {
   const rows = []; let row = [], cell = '', q = false;
@@ -17,7 +20,14 @@ function parseCsv(text) {
   if (cell || row.length) { row.push(cell); rows.push(row); }
   return rows.filter(r => r.length > 1);
 }
-const load = p => { const [h, ...d] = parseCsv(readFileSync(p, 'utf8').replace(/^﻿/, '')); return { h, d, c: Object.fromEntries(h.map((x, i) => [x, i])) }; };
+// 엑셀(.xlsx)로 라벨링한 경우 CSV로 변환해 읽음 (cli/labels_xlsx.py 사용)
+const toCsv = p => {
+  if (!/\.xlsx$/i.test(p)) return p;
+  const out = join(mkdtempSync(join(tmpdir(), 'labels-')), 'labels.csv');
+  execFileSync(process.platform === 'win32' ? 'python' : 'python3', ['cli/labels_xlsx.py', 'tocsv', p, out]);
+  return out;
+};
+const load = p => { const [h, ...d] = parseCsv(readFileSync(toCsv(p), 'utf8').replace(/^﻿/, '')); return { h, d, c: Object.fromEntries(h.map((x, i) => [x, i])) }; };
 const key = (r, c) => `${r[c.site]}\u0000${r[c.entity]}`;
 const csv = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
 

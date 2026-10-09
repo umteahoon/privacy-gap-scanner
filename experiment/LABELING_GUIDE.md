@@ -6,7 +6,8 @@
 
 | 파일 | 용도 |
 |---|---|
-| `labels_annotator_sample.csv` | **이번에 라벨링할 파일.** 고정 seed(20261009)로 뽑은 무작위 15개 사이트, 166행 |
+| `labels_A.xlsx`, `labels_B.xlsx` | **이번에 라벨링할 파일.** 고정 seed(20261009)로 뽑은 무작위 15개 사이트, 166행 (평가자별 1개) |
+| `labels_annotator_sample.csv` | 위 엑셀과 같은 내용의 CSV |
 | `labels_annotator.csv` | 전체 38개 사이트, 362행 (시간이 되면 전수 라벨링) |
 | `labels.csv` | 시스템 판정이 들어 있는 원본. **라벨링하는 동안 열어 보지 마세요.** |
 
@@ -14,15 +15,16 @@
 
 ## 2. 절차
 
-1. `labels_annotator_sample.csv`를 두 부 복사합니다.
-   - 평가자 A: `labels_A.csv`
-   - 평가자 B: `labels_B.csv`
+1. 엑셀 파일 두 개가 준비되어 있습니다. 각자 자기 파일만 엽니다.
+   - 평가자 A: `labels_A.xlsx`
+   - 평가자 B: `labels_B.xlsx`
 2. **서로 결과를 보지 않고** 각자 채웁니다.
-   - 평가자 A는 `annotator1` 열을, 평가자 B는 `annotator2` 열을 채웁니다.
-   - 값은 `명시` / `포괄` / `미명시` 셋 중 하나입니다. 애매하면 `note` 열에 이유를 적습니다.
+   - 주황색 칸(평가자 A는 `annotator1`, 평가자 B는 `annotator2`)에서 드롭다운으로 `명시` / `포괄` / `미명시`를 고릅니다.
+   - `policy_url`을 클릭하면 처리방침이 열립니다. 판정 기준은 엑셀의 "판정 기준" 시트에도 있습니다.
+   - 애매하면 `note` 칸에 이유를 적습니다.
 3. 두 파일을 합칩니다. 판정이 다른 행은 화면에 목록으로 나옵니다.
    ```bash
-   node cli/merge-labels.js experiment/labels_A.csv experiment/labels_B.csv
+   node cli/merge-labels.js experiment/labels_A.xlsx experiment/labels_B.xlsx
    ```
 4. 판정이 다른 행만 둘이 함께 처리방침을 다시 보고 협의합니다. 정한 값은 `experiment/labels.csv`의 `gold` 열에 적습니다. 두 사람 판정이 같은 행은 gold가 자동으로 채워집니다.
 5. 평가를 실행합니다.
