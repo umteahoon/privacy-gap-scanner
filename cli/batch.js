@@ -1,4 +1,4 @@
-// 실험용 일괄 스캔: node cli/batch.js [experiment/sites.csv] [--concurrency 3] [--out experiment/runs/<이름>] [--delay 3000]
+// 실험용 일괄 스캔: node cli/batch.js [experiment/sites.csv] [--concurrency 3] [--out experiment/runs/<이름>] [--delay 3000] [--dwell 4000] [--subpages 2]
 // 결과(기본): experiment/results/<도메인>.json, experiment/summary.csv, experiment/labels.csv(정답지 라벨링 양식),
 //       public/experiment-summary.json(웹 대시보드용, 사이트명 익명화)
 // --out 지정 시: 모든 결과를 그 폴더 안에만 저장 (논문 원자료·웹 대시보드 파일은 건드리지 않음)
@@ -7,7 +7,8 @@ import { scanSite, reanalyze } from '../lib/scan.js';
 import { CATEGORY_LABELS } from '../lib/trackers.js';
 
 const args = process.argv.slice(2);
-const valueArgs = new Set(['--concurrency', '--out', '--delay'].map(k => args[args.indexOf(k) + 1]).filter(Boolean));
+// 값을 받는 플래그 뒤의 인자는 목록 경로가 아님 (없는 플래그는 건너뜀)
+const valueArgs = new Set(['--concurrency', '--out', '--delay', '--dwell', '--subpages'].filter(k => args.includes(k)).map(k => args[args.indexOf(k) + 1]));
 const listPath = args.find(a => !a.startsWith('--') && !valueArgs.has(a)) || 'experiment/sites.csv';
 const ci = args.indexOf('--concurrency');
 const concurrency = ci >= 0 ? +args[ci + 1] : 3;
@@ -17,6 +18,10 @@ const oi = args.indexOf('--out');
 const OUT = oi >= 0 ? args[oi + 1].replace(/\/$/, '') : null;
 const di = args.indexOf('--delay');
 const DELAY = di >= 0 ? +args[di + 1] : (OUT ? 3000 : 0);   // 사이트 간 대기 (대상 서버 부하 완화)
+const wi = args.indexOf('--dwell');
+const DWELL = wi >= 0 ? +args[wi + 1] : undefined;      // 첫 페이지 체류 시간(ms), 기본 4000
+const si = args.indexOf('--subpages');
+const SUBPAGES = si >= 0 ? +args[si + 1] : undefined;   // 하위 페이지 수, 기본 2
 const BASE = OUT || 'experiment';
 const RESULTS = `${BASE}/results`;
 const DASH = OUT ? `${OUT}/experiment-summary.json` : 'public/experiment-summary.json';
@@ -46,7 +51,7 @@ async function worker() {
     if (!force && existsSync(f)) { console.error(`skip ${row.url}`); continue; }
     const t = Date.now();
     try {
-      const r = await scanSite(row.url, { policyUrl: row.policy_url, keepRaw: true });
+      const r = await scanSite(row.url, { policyUrl: row.policy_url, keepRaw: true, dwellMs: DWELL, subpages: SUBPAGES });
       r.siteCategory = row.category;
       writeFileSync(f, JSON.stringify(r, null, 2));
       console.error(`ok   ${row.url}  grade=${r.metrics.grade} U=${r.metrics.undisclosed}/${r.metrics.trackingEntities} (${((Date.now() - t) / 1000).toFixed(0)}s)`);

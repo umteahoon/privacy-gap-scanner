@@ -52,6 +52,7 @@ main { padding: 28px 16px 40px; display: flex; flex-direction: column; gap: 18px
 .center { text-align: center; }
 .mono { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: 12.5px; white-space: pre-line; word-break: normal; overflow-wrap: anywhere; }
 .nowrap { white-space: nowrap; }
+.tag-progress { margin-left: 6px; border-color: var(--accent); color: var(--accent); font-size: 12px; white-space: nowrap; }
 .hosts div { white-space: nowrap; }   /* 화면: 도메인은 한 줄 유지, 좁으면 표가 가로 스크롤 */
 .error { color: var(--bad); font-weight: 500; }
 .eyebrow { color: var(--accent); font-weight: 600; font-size: 13px; margin: 0 0 6px; letter-spacing: .02em; }
@@ -156,6 +157,12 @@ details[open] > summary { margin-bottom: 12px; }
 .fill-A { background: var(--g-a); } .fill-B { background: var(--g-b); } .fill-C { background: var(--g-c); }
 .fill-D { background: var(--g-d); } .fill-E { background: var(--g-e); } .fill-na { background: var(--g-na); }
 .bar-val { width: 24px; text-align: right; font-weight: 600; }
+.bar-val.wide { width: 36px; }
+.bar-label { width: 44px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.fill-accent { background: var(--accent); }
+.history-grid { margin-top: 18px; }
+.history-grid h3, .card > h3 { margin: 18px 0 10px; font-size: 15px; }
+.nowrap { white-space: nowrap; }
 .inline-bar { display: inline-block; width: 60px; height: 8px; background: var(--bg); border-radius: 4px; margin-right: 8px; overflow: hidden; vertical-align: middle; }
 .inline-bar div { height: 100%; background: var(--bad); }
 

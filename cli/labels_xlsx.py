@@ -1,5 +1,5 @@
 # 라벨링용 엑셀 파일 생성 / 엑셀 → CSV 변환
-#   생성: python cli/labels_xlsx.py make  [experiment/labels_annotator_sample.csv]
+#   생성: python cli/labels_xlsx.py make  [experiment/labels_annotator_sample.csv] [출력 접두어, 기본 experiment/labels]
 #         → experiment/labels_A.xlsx (annotator1 칸), experiment/labels_B.xlsx (annotator2 칸)
 #   변환: python cli/labels_xlsx.py tocsv <입력.xlsx> <출력.csv>   (merge-labels.js 가 자동 호출)
 import csv, sys
@@ -9,7 +9,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 
 CHOICES = ['명시', '포괄', '미명시']
 
-def make(src='experiment/labels_annotator_sample.csv'):
+def make(src='experiment/labels_annotator_sample.csv', prefix='experiment/labels'):
     rows = list(csv.DictReader(open(src, encoding='utf-8-sig')))
     for who, col in (('A', 'annotator1'), ('B', 'annotator2')):
         wb = Workbook(); ws = wb.active; ws.title = '라벨링'
@@ -44,7 +44,7 @@ def make(src='experiment/labels_annotator_sample.csv'):
         ]:
             guide.append([line])
         guide.column_dimensions['A'].width = 110
-        out = f'experiment/labels_{who}.xlsx'
+        out = f'{prefix}_{who}.xlsx'
         wb.save(out); print('saved', out, len(rows), 'rows')
 
 def tocsv(src, dst):

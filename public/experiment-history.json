@@ -1,0 +1,324 @@
+{
+  "generatedAt": "2026-11-03T12:03:22.133Z",
+  "rules": "v1",
+  "totalScans": 305,
+  "uniqueSites": 176,
+  "cumulative": {
+    "attempted": 176,
+    "scanned": 140,
+    "policyFound": 106,
+    "robotsExcluded": 17,
+    "blocked": 17,
+    "otherErrors": 2,
+    "trackingPairs": 902,
+    "explicit": 183,
+    "vague": 201,
+    "undisclosed": 518,
+    "undisclosedRate": 0.574,
+    "sitesWithUndisclosed": 76,
+    "meanGap": 0.584,
+    "meanTrackers": 8.5,
+    "grades": {
+      "D": 13,
+      "A": 13,
+      "C": 28,
+      "B": 16,
+      "E": 36
+    }
+  },
+  "cumulativeByCategory": [
+    {
+      "category": "언론",
+      "sites": 47,
+      "pairs": 567,
+      "undisclosed": 377,
+      "withUndisclosed": 43,
+      "undisclosedRate": 0.665
+    },
+    {
+      "category": "쇼핑",
+      "sites": 11,
+      "pairs": 85,
+      "undisclosed": 26,
+      "withUndisclosed": 7,
+      "undisclosedRate": 0.306
+    },
+    {
+      "category": "콘텐츠",
+      "sites": 10,
+      "pairs": 62,
+      "undisclosed": 16,
+      "withUndisclosed": 4,
+      "undisclosedRate": 0.258
+    },
+    {
+      "category": "교육·취업",
+      "sites": 8,
+      "pairs": 46,
+      "undisclosed": 17,
+      "withUndisclosed": 4,
+      "undisclosedRate": 0.37
+    },
+    {
+      "category": "생활·플랫폼",
+      "sites": 8,
+      "pairs": 27,
+      "undisclosed": 15,
+      "withUndisclosed": 4,
+      "undisclosedRate": 0.556
+    },
+    {
+      "category": "커뮤니티",
+      "sites": 7,
+      "pairs": 33,
+      "undisclosed": 26,
+      "withUndisclosed": 5,
+      "undisclosedRate": 0.788
+    },
+    {
+      "category": "의료·뷰티",
+      "sites": 6,
+      "pairs": 35,
+      "undisclosed": 21,
+      "withUndisclosed": 4,
+      "undisclosedRate": 0.6
+    },
+    {
+      "category": "금융",
+      "sites": 5,
+      "pairs": 11,
+      "undisclosed": 7,
+      "withUndisclosed": 2,
+      "undisclosedRate": 0.636
+    },
+    {
+      "category": "여행·항공",
+      "sites": 3,
+      "pairs": 34,
+      "undisclosed": 13,
+      "withUndisclosed": 3,
+      "undisclosedRate": 0.382
+    },
+    {
+      "category": "기업",
+      "sites": 1,
+      "pairs": 2,
+      "undisclosed": 0,
+      "withUndisclosed": 0,
+      "undisclosedRate": 0
+    }
+  ],
+  "runs": [
+    {
+      "id": "main",
+      "purpose": "본 실험 (논문 1차 수치)",
+      "kind": "main",
+      "date": "2026-10-07",
+      "firstAt": "2026-10-07T13:07:07.554Z",
+      "lastAt": "2026-10-07T13:53:02.475Z",
+      "planned": 76,
+      "inProgress": false,
+      "attempted": 76,
+      "scanned": 48,
+      "policyFound": 38,
+      "robotsExcluded": 15,
+      "blocked": 11,
+      "otherErrors": 2,
+      "trackingPairs": 362,
+      "explicit": 99,
+      "vague": 71,
+      "undisclosed": 192,
+      "undisclosedRate": 0.53,
+      "sitesWithUndisclosed": 27,
+      "meanGap": 0.493,
+      "meanTrackers": 9.5,
+      "grades": {
+        "D": 4,
+        "A": 6,
+        "C": 10,
+        "B": 4,
+        "E": 14
+      }
+    },
+    {
+      "id": "2026-10-09_repeat",
+      "purpose": "반복 측정 1 (재현성)",
+      "kind": "repeat",
+      "date": "2026-10-09",
+      "firstAt": "2026-10-09T06:47:34.472Z",
+      "lastAt": "2026-10-09T06:58:03.269Z",
+      "planned": 38,
+      "inProgress": false,
+      "attempted": 38,
+      "scanned": 38,
+      "policyFound": 37,
+      "robotsExcluded": 0,
+      "blocked": 0,
+      "otherErrors": 0,
+      "trackingPairs": 359,
+      "explicit": 96,
+      "vague": 75,
+      "undisclosed": 188,
+      "undisclosedRate": 0.524,
+      "sitesWithUndisclosed": 27,
+      "meanGap": 0.507,
+      "meanTrackers": 9.7,
+      "grades": {
+        "D": 4,
+        "A": 6,
+        "C": 10,
+        "B": 3,
+        "E": 14
+      }
+    },
+    {
+      "id": "2026-10-09_expand",
+      "purpose": "표본 1차 확대 (Tranco .kr)",
+      "kind": "expand",
+      "date": "2026-10-09",
+      "firstAt": "2026-10-09T07:03:07.727Z",
+      "lastAt": "2026-10-09T07:16:11.329Z",
+      "planned": 50,
+      "inProgress": false,
+      "attempted": 50,
+      "scanned": 45,
+      "policyFound": 31,
+      "robotsExcluded": 0,
+      "blocked": 5,
+      "otherErrors": 0,
+      "trackingPairs": 271,
+      "explicit": 34,
+      "vague": 74,
+      "undisclosed": 163,
+      "undisclosedRate": 0.601,
+      "sitesWithUndisclosed": 24,
+      "meanGap": 0.69,
+      "meanTrackers": 8.7,
+      "grades": {
+        "E": 12,
+        "A": 1,
+        "B": 6,
+        "C": 8,
+        "D": 4
+      }
+    },
+    {
+      "id": "2026-10-10_base",
+      "purpose": "반복 측정 2 (재현성)",
+      "kind": "repeat",
+      "date": "2026-10-10",
+      "firstAt": "2026-10-10T02:47:13.888Z",
+      "lastAt": "2026-10-10T03:01:30.705Z",
+      "planned": 15,
+      "inProgress": false,
+      "attempted": 76,
+      "scanned": 47,
+      "policyFound": 36,
+      "robotsExcluded": 17,
+      "blocked": 9,
+      "otherErrors": 3,
+      "trackingPairs": 351,
+      "explicit": 94,
+      "vague": 66,
+      "undisclosed": 191,
+      "undisclosedRate": 0.544,
+      "sitesWithUndisclosed": 26,
+      "meanGap": 0.5,
+      "meanTrackers": 9.8,
+      "grades": {
+        "D": 5,
+        "A": 6,
+        "C": 9,
+        "B": 3,
+        "E": 13
+      }
+    },
+    {
+      "id": "2026-10-10_deep",
+      "purpose": "수집 깊이 비교 (체류 15초·하위 4쪽)",
+      "kind": "sensitivity",
+      "date": "2026-10-10",
+      "firstAt": "2026-10-10T03:02:36.528Z",
+      "lastAt": "2026-10-10T03:10:54.417Z",
+      "planned": 15,
+      "inProgress": false,
+      "attempted": 15,
+      "scanned": 15,
+      "policyFound": 15,
+      "robotsExcluded": 0,
+      "blocked": 0,
+      "otherErrors": 0,
+      "trackingPairs": 177,
+      "explicit": 55,
+      "vague": 24,
+      "undisclosed": 98,
+      "undisclosedRate": 0.554,
+      "sitesWithUndisclosed": 12,
+      "meanGap": 0.519,
+      "meanTrackers": 11.8,
+      "grades": {
+        "A": 1,
+        "C": 6,
+        "E": 7,
+        "B": 1
+      }
+    },
+    {
+      "id": "2026-11-03_expand2",
+      "purpose": "표본 2차 확대 (Tranco .kr)",
+      "kind": "expand",
+      "date": "2026-11-03",
+      "firstAt": "2026-11-03T11:49:05.585Z",
+      "lastAt": "2026-11-03T12:03:11.081Z",
+      "planned": 50,
+      "inProgress": false,
+      "attempted": 50,
+      "scanned": 47,
+      "policyFound": 38,
+      "robotsExcluded": 0,
+      "blocked": 3,
+      "otherErrors": 0,
+      "trackingPairs": 265,
+      "explicit": 55,
+      "vague": 59,
+      "undisclosed": 151,
+      "undisclosedRate": 0.57,
+      "sitesWithUndisclosed": 25,
+      "meanGap": 0.568,
+      "meanTrackers": 7,
+      "grades": {
+        "C": 11,
+        "D": 4,
+        "E": 10,
+        "A": 6,
+        "B": 7
+      }
+    }
+  ],
+  "byDate": [
+    {
+      "date": "2026-10-07",
+      "attempted": 76,
+      "scanned": 48,
+      "policyFound": 38
+    },
+    {
+      "date": "2026-10-09",
+      "attempted": 88,
+      "scanned": 83,
+      "policyFound": 68
+    },
+    {
+      "date": "2026-10-10",
+      "attempted": 91,
+      "scanned": 62,
+      "policyFound": 51
+    },
+    {
+      "date": "2026-11-03",
+      "attempted": 50,
+      "scanned": 47,
+      "policyFound": 38
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 // 평가자 2명이 각자 채운 파일을 labels.csv 에 합친다.
-// 사용: node cli/merge-labels.js <평가자1.csv|.xlsx> <평가자2.csv|.xlsx>
+// 사용: node cli/merge-labels.js <평가자1.csv|.xlsx> <평가자2.csv|.xlsx> [--target experiment/labels.csv]
 //   - 각 파일은 labels_annotator_sample.csv(또는 labels_annotator.csv)를 복사해 annotator1 / annotator2 열만 채운 것
 //   - 두 판정이 같으면 gold 자동 기입, 다르면 비워 두고 목록 출력 → 협의 후 labels.csv 의 gold 열에 직접 기입
 import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
@@ -31,9 +31,12 @@ const load = p => { const [h, ...d] = parseCsv(readFileSync(toCsv(p), 'utf8').re
 const key = (r, c) => `${r[c.site]}\u0000${r[c.entity]}`;
 const csv = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
 
-const [f1, f2] = process.argv.slice(2);
+const argv = process.argv.slice(2);
+const ti = argv.indexOf('--target');
+const TARGET = ti >= 0 ? argv[ti + 1] : 'experiment/labels.csv';   // v2 보충 라벨: experiment/labels_v2extra.csv
+const [f1, f2] = argv.filter((a, i) => a !== '--target' && !(ti >= 0 && i === ti + 1));
 if (!f1 || !f2) { console.error('usage: node cli/merge-labels.js <평가자1.csv> <평가자2.csv>'); process.exit(1); }
-const L = load('experiment/labels.csv'), A = load(f1), B = load(f2);
+const L = load(TARGET), A = load(f1), B = load(f2);
 const a1 = new Map(A.d.map(r => [key(r, A.c), r[A.c.annotator1]?.trim()]).filter(([, v]) => v));
 const a2 = new Map(B.d.map(r => [key(r, B.c), r[B.c.annotator2]?.trim()]).filter(([, v]) => v));
 if (!a1.size || !a2.size) { console.error(`라벨이 비어 있습니다 (평가자1 ${a1.size}행, 평가자2 ${a2.size}행). 각 파일의 annotator1 / annotator2 열을 확인하세요.`); process.exit(1); }
@@ -46,6 +49,6 @@ for (const r of L.d) {
   const v1 = r[L.c.annotator1], v2 = r[L.c.annotator2];
   if (v1 && v2 && !r[L.c.gold]) { if (v1 === v2) r[L.c.gold] = v1; else conflicts.push(`${r[L.c.site]} / ${r[L.c.entity]}: ${v1} vs ${v2}`); }
 }
-writeFileSync('experiment/labels.csv', '﻿' + [L.h, ...L.d].map(r => r.map(csv).join(',')).join('\r\n') + '\r\n');
+writeFileSync(TARGET, '﻿' + [L.h, ...L.d].map(r => r.map(csv).join(',')).join('\r\n') + '\r\n');
 console.log(`합침: 평가자1 ${a1.size}행, 평가자2 ${a2.size}행, 판정 불일치 ${conflicts.length}행`);
-if (conflicts.length) { console.log('협의 후 labels.csv 의 gold 열에 기입할 행:'); conflicts.forEach(c => console.log('  ' + c)); }
+if (conflicts.length) { console.log(`협의 후 ${TARGET} 의 gold 열에 기입할 행:`); conflicts.forEach(c => console.log('  ' + c)); }
