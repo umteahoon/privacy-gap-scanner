@@ -6,14 +6,13 @@
 import { readFileSync, readdirSync, existsSync, writeFileSync } from 'node:fs';
 import { parse as parseDomain } from 'tldts';
 
-// 실험 회차 등록부: 새 실험 폴더를 만들면 여기에 한 줄 추가
+// 실험 회차: 본 실험 + experiment/runs/<회차>/run.json 이 있는 폴더 전부
+//   run.json 예: {"purpose": "표본 3차 확대 (Tranco .kr)", "kind": "expand"}   kind: repeat | expand | sensitivity
+// 새 실험 폴더에 run.json 만 만들면 자동으로 포함된다.
 const RUNS = [
   { id: 'main', dir: 'experiment/results', purpose: '본 실험 (논문 1차 수치)', kind: 'main' },
-  { id: '2026-10-09_repeat', purpose: '반복 측정 1 (재현성)', kind: 'repeat' },
-  { id: '2026-10-09_expand', purpose: '표본 1차 확대 (Tranco .kr)', kind: 'expand' },
-  { id: '2026-10-10_base', purpose: '반복 측정 2 (재현성)', kind: 'repeat' },
-  { id: '2026-10-10_deep', purpose: '수집 깊이 비교 (체류 15초·하위 4쪽)', kind: 'sensitivity' },
-  { id: '2026-11-03_expand2', purpose: '표본 2차 확대 (Tranco .kr)', kind: 'expand' },
+  ...readdirSync('experiment/runs').filter(d => existsSync(`experiment/runs/${d}/run.json`)).sort()
+    .map(d => ({ id: d, ...JSON.parse(readFileSync(`experiment/runs/${d}/run.json`, 'utf8')) })),
 ];
 
 const siteKey = r => parseDomain(new URL(r.url).hostname).domain || new URL(r.url).hostname;
