@@ -271,3 +271,8 @@ nav a { white-space: nowrap; }
 .diag-check { border-left: 4px solid var(--accent); }
 @media (max-width: 560px) { .diag { grid-template-columns: 1fr; gap: 6px; } .diag-badge { width: 72px; } }
 @media print { .diag { break-inside: avoid; } .diagnosis h2 { break-after: avoid; } }
+
+/* 실험 결과 페이지: 드러난 문제·한계 목록, 본 실험 구분 제목 */
+.findings { margin: 0; padding-left: 20px; display: grid; gap: 10px; line-height: 1.6; }
+.findings b { color: var(--text, inherit); }
+.section-divider { margin: 36px 4px 12px; font-size: 1.15rem; border-top: 1px solid var(--border, #dde2ec); padding-top: 24px; }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T11:18:28.708Z",
+  "generatedAt": "2026-11-19T11:45:38.347Z",
   "rules": "v1",
   "totalScans": 425,
   "uniqueSites": 296,
@@ -25,6 +25,54 @@
       "B": 23,
       "E": 52
     }
+  },
+  "findings": {
+    "sites": 186,
+    "sitesWithTrackers": 184,
+    "noNamedTracker": 73,
+    "undisclosedSetsCookie": 103,
+    "undisclosedGetsId": 83,
+    "cookieNotMentioned": 11,
+    "majorPlatforms": [
+      "Google",
+      "네이버",
+      "카카오"
+    ],
+    "majorPairs": 402,
+    "majorUndisclosedRate": 0.343,
+    "topUndisclosed": [
+      {
+        "name": "Amazon Ads",
+        "sites": 20,
+        "undisclosed": 17,
+        "rate": 0.85
+      },
+      {
+        "name": "데이블",
+        "sites": 39,
+        "undisclosed": 33,
+        "rate": 0.846
+      },
+      {
+        "name": "와이더플래닛",
+        "sites": 48,
+        "undisclosed": 38,
+        "rate": 0.792
+      },
+      {
+        "name": "Opera Ads",
+        "sites": 33,
+        "undisclosed": 26,
+        "rate": 0.788
+      },
+      {
+        "name": "Xandr (AppNexus)",
+        "sites": 51,
+        "undisclosed": 40,
+        "rate": 0.784
+      }
+    ],
+    "policyNotFound": 61
   },
   "cumulativeByCategory": [
     {

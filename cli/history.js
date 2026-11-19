@@ -80,12 +80,38 @@ for (const r of pooled.filter(r => !r.error && r.policy.found)) {
   const c = byCategory[r.siteCategory] ||= { category: r.siteCategory, sites: 0, pairs: 0, undisclosed: 0, withUndisclosed: 0 };
   c.sites++; c.pairs += r.metrics.trackingEntities; c.undisclosed += r.metrics.undisclosed; if (r.metrics.undisclosed > 0) c.withUndisclosed++;
 }
+// 누적 결과에서 드러난 문제 (웹 페이지 상단 "실험에서 드러난 문제"용, 처리방침 확보 사이트 기준)
+const judged = pooled.filter(r => !r.error && r.policy.found);
+const pairsOf = pred => judged.flatMap(r => r.entities.filter(e => e.tracking && pred(e)));
+const rateOf = list => (list.length ? r3(list.filter(e => e.status === 'undisclosed').length / list.length) : null);
+const entityStats = {};
+for (const e of pairsOf(() => true)) {
+  const x = entityStats[e.name] ||= { name: e.name, sites: 0, undisclosed: 0 };
+  x.sites++; if (e.status === 'undisclosed') x.undisclosed++;
+}
+// 판정 대상 사이트의 절반 이상에서 관측된 대형 플랫폼 (운영자가 직접 넣는 경우가 많아 대조군으로 사용)
+const major = Object.values(entityStats).filter(x => x.sites >= judged.length / 2);
+const majorPairs = pairsOf(e => major.some(m => m.name === e.name));
+const findings = {
+  sites: judged.length,
+  sitesWithTrackers: judged.filter(r => r.metrics.trackingEntities > 0).length,
+  noNamedTracker: judged.filter(r => r.metrics.trackingEntities > 0 && r.metrics.explicit === 0).length,   // 추적 사업자는 있는데 처리방침에 이름이 하나도 없음
+  undisclosedSetsCookie: judged.filter(r => r.metrics.undisclosedTrackerCookies > 0).length,              // 미명시 사업자가 쿠키 생성
+  undisclosedGetsId: judged.filter(r => r.metrics.idParamFlowsUndisclosed.length > 0).length,              // 미명시 사업자에 식별 파라미터 전송
+  cookieNotMentioned: judged.filter(r => r.metrics.cookieNotMentioned).length,
+  majorPlatforms: major.map(x => x.name), majorPairs: majorPairs.length, majorUndisclosedRate: rateOf(majorPairs),
+  topUndisclosed: Object.values(entityStats).filter(x => x.sites >= 15)
+    .map(x => ({ ...x, rate: r3(x.undisclosed / x.sites) })).sort((a, b) => b.rate - a.rate).slice(0, 5),
+  policyNotFound: cumulative.scanned - cumulative.policyFound,
+};
+
 const out = {
   generatedAt: new Date().toISOString(),
   rules: 'v1',
   totalScans: all.length,
   uniqueSites: latest.size,
   cumulative,
+  findings,
   cumulativeByCategory: Object.values(byCategory).map(c => ({ ...c, undisclosedRate: c.pairs ? r3(c.undisclosed / c.pairs) : null }))
     .sort((a, b) => b.sites - a.sites),
   runs: runs.sort((a, b) => a.firstAt.localeCompare(b.firstAt)),
