@@ -1,79 +1,79 @@
 {
-  "generatedAt": "2026-11-07T08:23:52.096Z",
+  "generatedAt": "2026-11-12T11:18:28.708Z",
   "rules": "v1",
-  "totalScans": 365,
-  "uniqueSites": 236,
+  "totalScans": 425,
+  "uniqueSites": 296,
   "cumulative": {
-    "attempted": 236,
-    "scanned": 193,
-    "policyFound": 149,
+    "attempted": 296,
+    "scanned": 247,
+    "policyFound": 186,
     "robotsExcluded": 17,
-    "blocked": 22,
-    "otherErrors": 4,
-    "trackingPairs": 1147,
-    "explicit": 244,
-    "vague": 242,
-    "undisclosed": 661,
-    "undisclosedRate": 0.576,
-    "sitesWithUndisclosed": 106,
-    "meanGap": 0.582,
-    "meanTrackers": 7.7,
+    "blocked": 27,
+    "otherErrors": 5,
+    "trackingPairs": 1353,
+    "explicit": 286,
+    "vague": 279,
+    "undisclosed": 788,
+    "undisclosedRate": 0.582,
+    "sitesWithUndisclosed": 138,
+    "meanGap": 0.598,
+    "meanTrackers": 7.3,
     "grades": {
-      "D": 21,
-      "A": 20,
-      "C": 41,
-      "B": 22,
-      "E": 45
+      "D": 29,
+      "A": 24,
+      "C": 58,
+      "B": 23,
+      "E": 52
     }
   },
   "cumulativeByCategory": [
     {
       "category": "언론",
-      "sites": 65,
-      "pairs": 696,
-      "undisclosed": 475,
-      "withUndisclosed": 59,
-      "undisclosedRate": 0.682
-    },
-    {
-      "category": "쇼핑",
-      "sites": 18,
-      "pairs": 126,
-      "undisclosed": 36,
-      "withUndisclosed": 12,
-      "undisclosedRate": 0.286
+      "sites": 78,
+      "pairs": 788,
+      "undisclosed": 543,
+      "withUndisclosed": 71,
+      "undisclosedRate": 0.689
     },
     {
       "category": "생활·플랫폼",
-      "sites": 16,
-      "pairs": 73,
-      "undisclosed": 42,
-      "withUndisclosed": 8,
-      "undisclosedRate": 0.575
+      "sites": 24,
+      "pairs": 115,
+      "undisclosed": 65,
+      "withUndisclosed": 16,
+      "undisclosedRate": 0.565
+    },
+    {
+      "category": "쇼핑",
+      "sites": 22,
+      "pairs": 152,
+      "undisclosed": 41,
+      "withUndisclosed": 15,
+      "undisclosedRate": 0.27
     },
     {
       "category": "콘텐츠",
-      "sites": 13,
-      "pairs": 66,
-      "undisclosed": 18,
-      "withUndisclosed": 6,
-      "undisclosedRate": 0.273
+      "sites": 17,
+      "pairs": 92,
+      "undisclosed": 34,
+      "withUndisclosed": 8,
+      "undisclosedRate": 0.37
     },
     {
       "category": "교육·취업",
-      "sites": 10,
-      "pairs": 53,
-      "undisclosed": 17,
-      "withUndisclosed": 4,
-      "undisclosedRate": 0.321
+      "sites": 15,
+      "pairs": 65,
+      "undisclosed": 25,
+      "withUndisclosed": 8,
+      "undisclosedRate": 0.385
     },
     {
       "category": "커뮤니티",
-      "sites": 10,
-      "pairs": 43,
-      "undisclosed": 31,
-      "withUndisclosed": 7,
-      "undisclosedRate": 0.721
+      "sites": 11,
+      "pairs": 44,
+      "undisclosed": 32,
+      "withUndisclosed": 8,
+      "undisclosedRate": 0.727
     },
     {
       "category": "의료·뷰티",
@@ -85,19 +85,19 @@
     },
     {
       "category": "금융",
-      "sites": 5,
-      "pairs": 11,
-      "undisclosed": 7,
-      "withUndisclosed": 2,
-      "undisclosedRate": 0.636
+      "sites": 6,
+      "pairs": 15,
+      "undisclosed": 11,
+      "withUndisclosed": 3,
+      "undisclosedRate": 0.733
     },
     {
       "category": "여행·항공",
-      "sites": 3,
-      "pairs": 34,
-      "undisclosed": 13,
-      "withUndisclosed": 3,
-      "undisclosedRate": 0.382
+      "sites": 4,
+      "pairs": 37,
+      "undisclosed": 15,
+      "withUndisclosed": 4,
+      "undisclosedRate": 0.405
     },
     {
       "category": "기업",
@@ -324,6 +324,37 @@
         "C": 13,
         "E": 9
       }
+    },
+    {
+      "id": "2026-11-12_expand4",
+      "purpose": "표본 4차 확대 (Tranco .kr)",
+      "kind": "expand",
+      "date": "2026-11-12",
+      "firstAt": "2026-11-12T11:03:54.370Z",
+      "lastAt": "2026-11-12T11:18:14.666Z",
+      "planned": 60,
+      "inProgress": false,
+      "attempted": 60,
+      "scanned": 54,
+      "policyFound": 37,
+      "robotsExcluded": 0,
+      "blocked": 5,
+      "otherErrors": 1,
+      "trackingPairs": 206,
+      "explicit": 42,
+      "vague": 37,
+      "undisclosed": 127,
+      "undisclosedRate": 0.617,
+      "sitesWithUndisclosed": 32,
+      "meanGap": 0.661,
+      "meanTrackers": 5.6,
+      "grades": {
+        "A": 4,
+        "C": 17,
+        "D": 8,
+        "E": 7,
+        "B": 1
+      }
     }
   ],
   "byDate": [
@@ -356,6 +387,12 @@
       "attempted": 60,
       "scanned": 53,
       "policyFound": 43
+    },
+    {
+      "date": "2026-11-12",
+      "attempted": 60,
+      "scanned": 54,
+      "policyFound": 37
     }
   ]
 }

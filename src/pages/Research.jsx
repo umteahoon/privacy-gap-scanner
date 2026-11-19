@@ -19,7 +19,7 @@ export default function Research() {
       <section className="card">
         <p className="eyebrow">실증 실험 · 본 실험 (논문 수치)</p>
         <h1 className="h1-sm">국내 웹사이트 {t.sites}곳 대조 결과</h1>
-        <p className="muted">쇼핑·언론·여행·교육·금융 등 업종별 주요 사이트를 대상으로 동일 조건에서 자동 스캔한 결과입니다. 사이트명은 익명 처리했습니다. ({new Date(d.generatedAt).toLocaleDateString('ko-KR')} 수집)</p>
+        <p className="muted">쇼핑·언론·여행·교육·금융 등 8개 업종에서 인지도가 높은 서비스를 연구자가 선정해 동일 조건에서 자동 스캔한 결과입니다. 사이트명은 익명 처리했습니다. ({new Date(d.generatedAt).toLocaleDateString('ko-KR')} 수집)</p>
         <p className="muted small">robots.txt로 자동화 접근을 금지했거나({t.robotsExcluded ?? 0}곳) 자동화 브라우저를 차단한({t.blocked ?? 0}곳) 사이트는 운영자의 접근 정책을 존중해 우회하지 않고 제외했습니다. 기타 접속 오류 {t.otherErrors ?? 0}곳.</p>
         <div className="metrics">
           <Metric label="스캔 성공" value={`${t.scanned}/${t.sites}`} hint={`정책상 제외 ${(t.robotsExcluded ?? 0) + (t.blocked ?? 0)}곳`} />
@@ -45,6 +45,10 @@ export default function Research() {
               </div>
             ))}
           </div>
+          <p className="muted small">
+            스캔에 성공한 {t.scanned}곳 기준입니다. 등급은 미명시 사업자 수로 정합니다: A 미명시·포괄 고지 없음, B 미명시 없음, C 미명시 1~2개, D 3~5개, E 6개 이상 (쿠키를 만들면서 처리방침에 쿠키 안내가 없으면 한 단계 낮춤).
+            N/A는 사이트는 열렸지만 처리방침 링크를 찾지 못했거나, 처리방침 페이지가 robots.txt 금지·접근 차단이라 판정하지 않은 사이트입니다.
+          </p>
         </section>
         <section className="card">
           <h2>업종별 <span className="count">처리방침 확보 사이트</span></h2>
